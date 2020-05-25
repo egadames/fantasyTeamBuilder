@@ -7,9 +7,10 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.MENU_SWITCH:
-      return switchMenu(state, action)
+      return switchMenu(state, action);
+    default:
+      return state;
   }
-  return state
 }
 
 function switchMenu(state, action) {

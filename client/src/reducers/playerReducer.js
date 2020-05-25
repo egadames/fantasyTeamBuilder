@@ -11,15 +11,16 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.CHANGE_SCATTER_DATA:
-      return changeScatterData(state, action)
+      return changeScatterData(state, action);
     case actionTypes.SET_HIGHLIGHTED_POINT:
-      return setHighlightedPoint(state, action)
+      return setHighlightedPoint(state, action);
     case actionTypes.CHANGE_PLAYER:
-      return changePlayer(state, action)
-      case actionTypes.SWITCH_DATA:
-        return switchData(state, action)
+      return changePlayer(state, action);
+    case actionTypes.SWITCH_DATA:
+      return switchData(state, action);
+    default:
+      return state;
   }
-  return state
 }
 
 function changeScatterData(state, action) {
