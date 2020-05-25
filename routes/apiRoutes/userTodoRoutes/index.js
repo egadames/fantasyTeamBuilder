@@ -13,8 +13,6 @@ const { requireAuth } = require('../../../middlewares/authMiddlewares');
 router.get('/emails', getAllUserEmails);
 
 // /api/user/todos
-
-
 router.route('/todos')
   .get(requireAuth, getUserTodos)
   .post(requireAuth, addTodo);

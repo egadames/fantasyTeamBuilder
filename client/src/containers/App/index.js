@@ -3,16 +3,19 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react'
 
-import Counter from './../Counter';
+import New from '../newTeam';
 
-import AllTodosList from '../AllTodosList';
-import UserTodoList from '../UserTodoList';
 
-import SignUp from '../SignUp';
-import SignIn from '../SignIn';
-import SignOut from '../SignOut';
+// import Counter from './../Counter';
 
-import Navbar from './../../components/Navbar';
+// import AllTodosList from '../AllTodosList';
+// import UserTodoList from '../UserTodoList';
+
+// import SignUp from '../SignUp';
+// import SignIn from '../SignIn';
+// import SignOut from '../SignOut';
+
+// import Navbar from './../../components/Navbar';
 
 
 class App extends Component {
@@ -20,14 +23,14 @@ class App extends Component {
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 700 }}>
-          <Navbar authenticated={this.props.authenticated}/>
-          <Route exact path='/' component={SignUp}/>
+          {/*<Navbar authenticated={this.props.authenticated}/>*/}
+          <Route exact path='/' component={New}/>
 
-          <Route exact path='/signin' component={SignIn}/>
-          <Route exact path='/signout' component={SignOut}/>
-          <Route exact path='/alltodos' component={AllTodosList}/>
-          <Route exact path='/usertodos' component={UserTodoList}/>
-          <Route exact path='/counter' component={Counter}/>
+          {/*<Route exact path='/signin' component={SignIn}/>*/}
+          {/*<Route exact path='/signout' component={SignOut}/>*/}
+          {/*/!* <Route exact path='/alltodos' component={AllTodosList}/>*/}
+          {/*<Route exact path='/usertodos' component={UserTodoList}/> *!/*/}
+          {/*<Route exact path='/counter' component={Counter}/>*/}
         </Grid.Column>
       </Grid>
     )

@@ -1,24 +1,25 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import counterReducer from './counterReducer';
-import todosReducer from './todosReducer';
+// import counterReducer from './counterReducer';
+import createReducer from './createReducer';
 import authReducer from './authReducer';
 
-import { ADD_USER_TODO } from '../actions/types';
+// import { ADD_USER_TODO } from '../actions/types';
 
 export default combineReducers({
   auth: authReducer,
-  todos: todosReducer,
-  counter: counterReducer,
-  form: formReducer.plugin({
-    addTodo: (state, action) => {
-      switch(action.type) {
-        case ADD_USER_TODO:
-          return undefined;
-        default:
-          return state;
-      }
-    }
-  }),
+  playerStats: createReducer,
+  // counter: counterReducer,
+  form: formReducer,
+  // form: formReducer.plugin({
+  //   addTodo: (state, action) => {
+  //     switch(action.type) {
+  //       case ADD_USER_TODO:
+  //         return undefined;
+  //       default:
+  //         return state;
+  //     }
+  //   }
+  // }),
 });
