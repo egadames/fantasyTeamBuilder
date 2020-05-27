@@ -1,44 +1,36 @@
 import React from 'react';
-import { Header, List, Button, Popup } from 'semantic-ui-react';
+import { Header, List, Divider, Image, Container, Button } from 'semantic-ui-react';
 
-import DeleteTodoModel from '../../../components/DeleteTodoModal'
+// import DeleteTodoModel from '../../../components/DeleteTodoModal'
+// return props.playerStats.map(({PlayerId, Name, Position, PhotoUrl, Team, Rebounds, Assists, Steals, Turnovers, BlockedShots, Points, Games }) => {
+// 	return (
+
 
 export default (props) => {
-	if (props.todos.length === 0) {
-		return <Header content='No todos yet'/>;
+	if (props.playerStats.length === 0) {
+		return <Header content="No players yet" />;
 	} else {
-		return props.todos.map(({_id, text, completed }) => {
-			return (
-				<List.Item key={_id}>
-					<List.Content floated='left' >
-						<p style={{ textDecoration: completed ? 'line-through' : 'none', fontSize: '20px'}}>{text}</p>
-					</List.Content>
-					<List.Content floated='right'>
-						<Popup
-							on='click'
-							position='top right'
-							trigger={
-								<Button
-									color='blue'
-									content='Mark Complete'
-									size='small'
-								/>
-							}
-							content={
-								<Button
-									color='green'
-									content='Are you sure this is done?'
-									onClick={ () => props.handleUpdate(_id, completed, text)}
-								/>
-							}
-						/>
-						<DeleteTodoModel
-							handleDelete = {props.handleDelete}
-							text={text}
-						  id={_id}/>
-					</List.Content>
-				</List.Item>
-			);
-		});
+		return props.playerStats.map(
+			({ PlayerId, Name, Position, PhotoUrl, Team, Rebounds, Assists, Steals, Turnovers, BlockedShots, Points, Games }) => {
+				return (
+					<Container>
+						<Container fluid>
+							<List>
+								<List.Item>
+									<List.Content floated="right">
+										<Button>Add</Button>
+									</List.Content>
+									<Image src={PhotoUrl} floated="left" />
+									<List.Content>
+										<b>{Name}</b>
+									</List.Content>
+								</List.Item>
+								<Divider />
+							</List>
+						</Container>
+					</Container>
+				);
+			}
+		);
 	}
 }
