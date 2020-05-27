@@ -21,7 +21,6 @@ class UserTodoList extends Component {
 		end: 10,
 	}
 
-
 	componentDidMount() {
 		this.props.getUserTodos();
 	}
