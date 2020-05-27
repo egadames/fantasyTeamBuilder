@@ -6,16 +6,20 @@ import {
   Placeholder,
   Button,
   Card,
-  Menu,
+  Segment,
   Table,
   Container,
 } from "semantic-ui-react";
 import { connect } from "react-redux";
+import _ from 'lodash';
 import { getAllPlayerStats } from "../../actions/createTeam";
 
 class AllPlayers extends Component {
   state = {
     team: [],
+    column: null,
+    data: this.props.playerStats,
+    direction: null,
     activePage: 1,
     start: 0,
     end: 10,
@@ -23,6 +27,9 @@ class AllPlayers extends Component {
 
   componentDidMount() {
     this.props.getAllPlayerStats();
+    // console.log(this.props.getAllPlayerStats)
+    // this.setState({data: this.props.playerStats})
+
   }
 
   handlePageChange = (event, data) => {
@@ -34,16 +41,20 @@ class AllPlayers extends Component {
   };
 
   renderLoadBox = () => {
+    const add = (a, b) =>  a + b;
+    const fantasyPoints = _.map(this.state.team, 'fantasyPoints');
+    console.log(fantasyPoints = fantasyPoints || 0);
+    const sum = fantasyPoints.length === 0 ? 0 : fantasyPoints.reduce(add)   
     return (
       <Container
         fluid
         style={{ border: "solid", height: "50vh", width: "100vh" }}
       >
-        <Menu.Item
-          name="Points"
-          fixed={"left"}
-        // onClick={this.handleItemClick}
-        />
+      <Segment clearing>
+        <Header as='h1' floated='right'>
+          Total Fantasy Points: {sum}
+        </Header>
+      </Segment>
         <Card.Group itemsPerRow={5}>
           {this.state.team.map( player => (
             <Card>
@@ -68,6 +79,28 @@ class AllPlayers extends Component {
   addPlayer = (player) => {
     this.setState({team: [...this.state.team, player]})
   };
+
+  handleSort = (clickedColumn) => () => {
+    const names = _.map(this.props.playerStats, 'Name');
+    const position = _.map(this.props.playerStats, 'Position');
+    const fantasyPoints = _.map(this.props.playerStats, 'fantasyPoints');
+    const { column, direction } = this.state;
+    
+    if (column !== clickedColumn && clickedColumn === 'Name') {
+      this.setState({column: clickedColumn,data: _.sortBy(names, [clickedColumn]),direction: 'ascending',})
+      return
+    } else if (column !== clickedColumn && clickedColumn === 'Position') {
+      this.setState({column: clickedColumn,data: _.sortBy(position, [clickedColumn]),direction: 'ascending',})
+      return
+    } else if (column !== clickedColumn && clickedColumn === 'fantasyPoints') {
+      this.setState({column: clickedColumn,data: _.sortBy(fantasyPoints, [clickedColumn]),direction: 'ascending',})
+      return
+    }
+    this.setState({
+      data: this.props.playerStats.reverse(),
+      direction: direction === 'ascending' ? 'descending' : 'ascending',
+    })
+  }
 
   renderPlayerTable = () => {
     if (this.props.playerStats.length === 0) {
@@ -100,22 +133,22 @@ class AllPlayers extends Component {
               Games
             )
             return (
-              <Table unstackable celled padded columns={4}>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell textAlign="center">Name</Table.HeaderCell>
-                    <Table.HeaderCell textAlign="center">
-                      Position
-                    </Table.HeaderCell>
-                    <Table.HeaderCell textAlign="center">
-                      Fantasy Points
-                    </Table.HeaderCell>
-                    <Table.HeaderCell textAlign="center">
-                      Add to team
-                    </Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
+              // <Table unstackable celled padded columns={4}>
+              //   <Table.Header>
+              //     <Table.Row>
+              //       <Table.HeaderCell textAlign="center">Name</Table.HeaderCell>
+              //       <Table.HeaderCell textAlign="center">
+              //         Position
+              //       </Table.HeaderCell>
+              //       <Table.HeaderCell textAlign="center">
+              //         Fantasy Points
+              //       </Table.HeaderCell>
+              //       <Table.HeaderCell textAlign="center">
+              //         Add to team
+              //       </Table.HeaderCell>
+              //     </Table.Row>
+              //   </Table.Header>
+              //   <Table.Body>
                   <Table.Row key={PlayerId}>
                     <Table.Cell>
                       <Image
@@ -149,8 +182,7 @@ class AllPlayers extends Component {
                       />
                     </Table.Cell>
                   </Table.Row>
-                </Table.Body>
-              </Table>
+
             );
           }
         );
@@ -158,10 +190,34 @@ class AllPlayers extends Component {
   };
 
   render() {
+    const { column, direction } = this.state
     return (
       <Container>
         {this.renderLoadBox()}
-        {this.renderPlayerTable()}
+        <Table sortable unstackable celled padded columns={4}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell               
+              sorted={column === 'Name' ? direction : null}
+              onClick={this.handleSort('Name')}
+              textAlign="center"
+              >Name</Table.HeaderCell>
+              <Table.HeaderCell 
+                sorted={column === 'Position' ? direction : null}
+                onClick={this.handleSort('Position')}
+                textAlign="center"
+                >Position</Table.HeaderCell>
+              <Table.HeaderCell 
+              sorted={column === 'fantasyPoints' ? direction : null}
+              onClick={this.handleSort('fantasyPoints')}
+              textAlign="center">Fantasy Points</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Add to team</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {this.renderPlayerTable()}
+          </Table.Body>
+        </Table>
         <Pagination
           totalPages={Math.ceil(this.props.playerStats.length / 10)}
           activePage={this.state.activePage}
@@ -179,271 +235,3 @@ function mapStateToProps({
 }
 
 export default connect(mapStateToProps, { getAllPlayerStats })(AllPlayers);
-
-// renderPlayerList = () => {
-//   if (this.props.playerStats.length === 0) {
-//     return <Header content="No players yet" />;
-//   } else {
-//     return this.props.playerStats.map(
-//       ({
-//         PlayerId,
-//         Name,
-//         Position,
-//         PhotoUrl,
-//         Team,
-//         Rebounds,
-//         Assists,
-//         Steals,
-//         Turnovers,
-//         BlockedShots,
-//         Points,
-//         Games,
-//       }) => {
-//         return (
-//           <div>
-//             <Card
-//             fluid
-//               image={PhotoUrl}
-//               header={Name}
-//               meta="Friend"
-//               description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-//               extra={Name}
-//             />
-//           </div>
-//         );
-//       }
-//     );
-//   }
-// };
-
-// renderPlayerList = () => {
-//   if (this.props.playerStats.length === 0) {
-//     return <Header content="No players yet" />;
-//   } else {
-//     return this.props.playerStats.map(
-//       ({
-//         PlayerId,
-//         Name,
-//         Position,
-//         PhotoUrl,
-//         Team,
-//         Rebounds,
-//         Assists,
-//         Steals,
-//         Turnovers,
-//         BlockedShots,
-//         Points,
-//         Games,
-//       }) => {
-//         return (
-//           <Container fluid>
-//             <Item>
-//               <Item.Image src={PhotoUrl} />
-
-//               <Item.Content>
-//                 <Item.Header as="a">Watchmen</Item.Header>
-//                 <Item.Meta>
-//                   <span className="cinema">IFC</span>
-//                 </Item.Meta>
-//                 <Item.Description>{Name}</Item.Description>
-//                 <Item.Extra>
-//                   <Button primary floated="right">
-//                     Buy tickets
-//                     <Icon name="right chevron" />
-//                   </Button>
-//                 </Item.Extra>
-//               </Item.Content>
-//             </Item>
-//           </Container>
-//         );
-//       }
-//     );
-//   }
-// };
-
-// renderPlayerList = () => {
-//   if (this.props.playerStats.length === 0) {
-//     return <Header content="No players yet" />;
-//   } else {
-//     return this.props.playerStats.map(
-//       ({ PlayerId, Name, Position, PhotoUrl, Team, Rebounds, Assists, Steals, Turnovers, BlockedShots, Points, Games }) => {
-//         return (
-//           <div>
-//             <List>
-//               <List.Item key={PlayerId}>
-//                 <List.Content>
-//                   <Image src={PhotoUrl} floated="left" />
-//                   <Divider />
-//                   <List.Header floated="left">
-//                     {Name}
-//                   </List.Header>
-//                   <List.Description>
-//                    Team: {Team}
-//                   </List.Description>
-//                   <List.Description>
-//                     Rebounds: {Rebounds/Games}
-//                   </List.Description>
-//                   <List.Description>
-//                     Assists: {Assists/Games}
-//                   </List.Description>
-//                   <List.Description>
-//                     Steals: {Steals/Games}
-//                   </List.Description>
-//                   <List.Description>
-//                     Turnovers: {Turnovers/Games}
-//                   </List.Description>
-//                   <List.Description>
-//                     Blocked Shots: {BlockedShots/Games}
-//                   </List.Description>
-//                   <List.Description>
-//                     Points Per Game: {Points/Games}
-//                   </List.Description>
-//                   <List.Description>
-//                     Games: {Games}
-//                   </List.Description>
-//                 </List.Content>
-//               </List.Item>
-//             </List>
-//           </div>
-//         );
-//       }
-//     );
-//   }
-// };
-
-// 	render() {
-// 		return (
-// 			<>
-// 				<Header as='h2' color='teal' textAlign='center' content='Welcome to the todo app'/>
-// 				<List animated divided selection>
-// 					<playerList
-// 						playerStats={this.props.playerStats}
-// 					/>
-// 				</List>
-// 			</>
-// 		);
-// 	}
-// }
-
-// renderPlayerList = (props) => {
-//   return (
-//     <MaterialTable
-//       title="Render Image Preview"
-//       columns={[
-//         {
-//           title: "Image",
-//           field: "imageUrl",
-//           render: (rowData) => (
-//             <img
-//               src={rowData.imageUrl}
-//               style={{ width: 40, borderRadius: "50%" }}
-//             />
-//           ),
-//         },
-//         { title: "Name", field: "name" },
-//         { title: "Surname", field: "surname" },
-//         { title: "Birth Year", field: "birthYear", type: "numeric" },
-//         {
-//           title: "Birth Place",
-//           field: "birthCity",
-//           lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
-//         },
-//       ]}
-//       data={this.props.playerStats.map(
-//         ({ PlayerID, Name, Position, Points, PhotoUrl }) => [
-//           { name: `${Name}` },
-//           { surname: `${Position}` },
-//           { birthYear: `${Points}` },
-//           { birthCity: `${PlayerID}` },
-//           { imageUrl: `${PhotoUrl}` },
-//         ]
-//       )}
-//     />
-//   );
-// };
-
-// renderLoadBox = () => {
-//   return (
-//     <Container fluid style={{border: 'solid', height: "50vh", width: '100vh' }}>
-//       <Menu.Item
-//         name="Points"
-//         fixed={"left"}
-//         // onClick={this.handleItemClick}
-//       />
-//       <Card.Group itemsPerRow={5}>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//       </Card.Group>
-//       <Card.Group itemsPerRow={5}>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//         <Card>
-//           <Card.Content>
-//             <Placeholder>
-//               <Placeholder.Image rectangular />
-//             </Placeholder>
-//           </Card.Content>
-//         </Card>
-//       </Card.Group>
-//     </Container>
-//   );
-// };
