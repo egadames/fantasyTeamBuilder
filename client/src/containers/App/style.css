@@ -1,0 +1,13 @@
+.homapgecontainer {
+  
+  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+  color:white;
+  height: 85vh;
+}
+.image{
+  width:100%;
+  height:100%;
+}
+.footer{
+  width : 100%;
+}
