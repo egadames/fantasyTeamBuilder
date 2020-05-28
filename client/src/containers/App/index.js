@@ -5,6 +5,7 @@ import { Grid } from 'semantic-ui-react'
 
 import New from '../newTeam';
 
+import "./style.css";
 
 // import Counter from './../Counter';
 
@@ -15,24 +16,30 @@ import New from '../newTeam';
 // import SignIn from '../SignIn';
 // import SignOut from '../SignOut';
 
-// import Navbar from './../../components/Navbar';
-
+import Navbar from './../../components/Navbar';
+import Homepage from  "../../components/Homepage";
+import Footer from"../../components/Footer";
 
 class App extends Component {
   render() {
     return (
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-        <Grid.Column style={{ maxWidth: 700 }}>
-          {/*<Navbar authenticated={this.props.authenticated}/>*/}
-          <Route exact path='/' component={New}/>
+      // // <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      //   // <Grid.Column style={{ maxWidth: 700 }}>
+      //     {/*<Navbar authenticated={this.props.authenticated}/>*/}
+      //     // <Route exact path='/' component={New}/>
 
-          {/*<Route exact path='/signin' component={SignIn}/>*/}
-          {/*<Route exact path='/signout' component={SignOut}/>*/}
-          {/*/!* <Route exact path='/alltodos' component={AllTodosList}/>*/}
-          {/*<Route exact path='/usertodos' component={UserTodoList}/> *!/*/}
-          {/*<Route exact path='/counter' component={Counter}/>*/}
-        </Grid.Column>
-      </Grid>
+      //     {/*<Route exact path='/signin' component={SignIn}/>*/}
+      //     {/*<Route exact path='/signout' component={SignOut}/>*/}
+      //     {/*/!* <Route exact path='/alltodos' component={AllTodosList}/>*/}
+      //     {/*<Route exact path='/usertodos' component={UserTodoList}/> *!/*/}
+      //     {/*<Route exact path='/counter' component={Counter}/>*/}
+      //   // </Grid.Column>
+      // // </Grid>
+      <div>
+        <Navbar />
+        <Homepage />
+        <Footer />
+      </div>
     )
   }
 }
