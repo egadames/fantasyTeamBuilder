@@ -10,7 +10,7 @@ import authReducer from './authReducer';
 export default combineReducers({
   auth: authReducer,
   playerStats: createReducer,
-  // counter: counterReducer,
+  teams: createReducer,
   form: formReducer,
   // form: formReducer.plugin({
   //   addTodo: (state, action) => {

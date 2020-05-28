@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react'
 
-import New from '../newTeam';
 
 import "./style.css";
 
@@ -19,30 +18,31 @@ import "./style.css";
 import Navbar from './../../components/Navbar';
 import Homepage from  "../../components/Homepage";
 import Footer from"../../components/Footer";
+import newTeam from '../newTeam';
+import Teams from '../Team'
 
 class App extends Component {
   render() {
     return (
-      // // <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      //   // <Grid.Column style={{ maxWidth: 700 }}>
-      //     {/*<Navbar authenticated={this.props.authenticated}/>*/}
-      //     // <Route exact path='/' component={New}/>
-
-      //     {/*<Route exact path='/signin' component={SignIn}/>*/}
-      //     {/*<Route exact path='/signout' component={SignOut}/>*/}
-      //     {/*/!* <Route exact path='/alltodos' component={AllTodosList}/>*/}
-      //     {/*<Route exact path='/usertodos' component={UserTodoList}/> *!/*/}
-      //     {/*<Route exact path='/counter' component={Counter}/>*/}
-      //   // </Grid.Column>
-      // // </Grid>
       <div>
-        <Navbar />
-        <Homepage />
-        <Footer />
+          <Navbar/>
+          <Route exact path='/' component={Homepage}/>
+          {/* <Route exact path='/signin' component={SignIn}/>
+          <Route exact path='/signout' component={SignOut}/> */}
+          <Route exact path='/team' component={newTeam}/>
+          <Route exact path='/viewteams' component={Teams}/>
+          {/* <Route exact path='/counter' component={Counter}/> */}
+          <Footer />
       </div>
     )
   }
 }
+
+      // <div>
+      //   <Navbar />
+      //   <Homepage />
+      //   <Footer />
+      // </div>
 
 function mapStateToProps(state) {
   return { authenticated: state.auth.authenticated };
