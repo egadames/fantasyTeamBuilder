@@ -3,7 +3,6 @@ import {
   Header,
   Image,
   Pagination,
-  Placeholder,
   Button,
   Card,
   Segment,
@@ -12,14 +11,13 @@ import {
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import _ from 'lodash';
-import { getAllPlayerStats } from "../../actions/createTeam";
+import { getAllPlayerStats, sortPlayersByName } from "../../actions/createTeam";
+import axios from 'axios';
 
 class AllPlayers extends Component {
   state = {
     team: [],
-    column: null,
-    data: this.props.playerStats,
-    direction: null,
+    // column: null, 
     activePage: 1,
     start: 0,
     end: 10,
@@ -27,9 +25,6 @@ class AllPlayers extends Component {
 
   componentDidMount() {
     this.props.getAllPlayerStats();
-    // console.log(this.props.getAllPlayerStats)
-    // this.setState({data: this.props.playerStats})
-
   }
 
   handlePageChange = (event, data) => {
@@ -40,10 +35,25 @@ class AllPlayers extends Component {
     });
   };
 
+  // onSubmit = async(formValues, dispatch) => {
+	// 	try {
+	// 		const { data } = await axios.post('/api/auth/signin', formValues);
+	// 		console.log(data)
+	// 		localStorage.setItem('token', data.token);
+	// 		dispatch({ type: AUTH_USER, payload: data.token});
+	// 		this.props.history.push('/counter');
+	// 	} catch (e) {
+	// 		throw new SubmissionError({
+	// 			email: 'Wrong Email',
+	// 			password: 'Wrong Password',
+	// 			_error: 'SignIn Failed'
+	// 		});
+	// 	}
+  // }
+  
   renderLoadBox = () => {
     const add = (a, b) =>  a + b;
     const fantasyPoints = _.map(this.state.team, 'fantasyPoints');
-    console.log(fantasyPoints = fantasyPoints || 0);
     const sum = fantasyPoints.length === 0 ? 0 : fantasyPoints.reduce(add)   
     return (
       <Container
@@ -51,6 +61,7 @@ class AllPlayers extends Component {
         style={{ border: "solid", height: "50vh", width: "100vh" }}
       >
       <Segment clearing>
+        <Button>Make Team</Button>
         <Header as='h1' floated='right'>
           Total Fantasy Points: {sum}
         </Header>
@@ -72,120 +83,69 @@ class AllPlayers extends Component {
             </Card.Content>
           </Card> */}
         </Card.Group>
+
       </Container>
     );
   };
 
   addPlayer = (player) => {
+    console.log(player)
     this.setState({team: [...this.state.team, player]})
   };
 
-  handleSort = (clickedColumn) => () => {
-    const names = _.map(this.props.playerStats, 'Name');
-    const position = _.map(this.props.playerStats, 'Position');
-    const fantasyPoints = _.map(this.props.playerStats, 'fantasyPoints');
-    const { column, direction } = this.state;
-    
-    if (column !== clickedColumn && clickedColumn === 'Name') {
-      this.setState({column: clickedColumn,data: _.sortBy(names, [clickedColumn]),direction: 'ascending',})
-      return
-    } else if (column !== clickedColumn && clickedColumn === 'Position') {
-      this.setState({column: clickedColumn,data: _.sortBy(position, [clickedColumn]),direction: 'ascending',})
-      return
-    } else if (column !== clickedColumn && clickedColumn === 'fantasyPoints') {
-      this.setState({column: clickedColumn,data: _.sortBy(fantasyPoints, [clickedColumn]),direction: 'ascending',})
-      return
-    }
-    this.setState({
-      data: this.props.playerStats.reverse(),
-      direction: direction === 'ascending' ? 'descending' : 'ascending',
-    })
-  }
-
   renderPlayerTable = () => {
+    console.log(this.props.playerStats)
     if (this.props.playerStats.length === 0) {
       return <Header content="No players yet" />;
     } else {
       return this.props.playerStats
-        .slice(this.state.start, this.state.end)
+      .slice(this.state.start, this.state.end)
         .map(
           ({
-            PlayerId,
+            PlayerID,
             Name,
             Position,
             PhotoUrl,
-            Team,
-            Rebounds,
-            Assists,
-            Steals,
-            Turnovers,
-            BlockedShots,
-            Points,
+            fantasyPoints,
             Games,
           }) => {
-            let fantasyPoints = Math.ceil(
-              (Points +
-                Rebounds * 1.2 +
-                Assists * 1.5 +
-                Steals * 3 +
-                BlockedShots * 3 +
-                Turnovers * -1) /
-              Games
-            )
             return (
-              // <Table unstackable celled padded columns={4}>
-              //   <Table.Header>
-              //     <Table.Row>
-              //       <Table.HeaderCell textAlign="center">Name</Table.HeaderCell>
-              //       <Table.HeaderCell textAlign="center">
-              //         Position
-              //       </Table.HeaderCell>
-              //       <Table.HeaderCell textAlign="center">
-              //         Fantasy Points
-              //       </Table.HeaderCell>
-              //       <Table.HeaderCell textAlign="center">
-              //         Add to team
-              //       </Table.HeaderCell>
-              //     </Table.Row>
-              //   </Table.Header>
-              //   <Table.Body>
-                  <Table.Row key={PlayerId}>
-                    <Table.Cell>
-                      <Image
-                        src={PhotoUrl}
-                        style={{ margin: "10px auto -20px auto" }}
-                      />
-                      <Header as="h4" content={Name} textAlign="center" />
-                    </Table.Cell>
-                    <Table.Cell singleLine textAlign="center">
-                      <Header as="h2" content={Position} />
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      <Header
-                        as="h2"
-                        content={Games === 0 ? 0 : fantasyPoints}
-                      />
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      <Button
-                        onClick={() => this.addPlayer({
-                          PlayerId,
-                          Name,
-                          Position,
-                          PhotoUrl,
-                          fantasyPoints,
-                        })}
-                        disabled={this.state.length<10}
-                        color="blue"
-                        content="Add player to team"
-                        size="mini"
-                      />
-                    </Table.Cell>
-                  </Table.Row>
-
-            );
-          }
-        );
+            <Table.Row key={PlayerID}>
+              <Table.Cell>
+                <Image
+                  src={PhotoUrl}
+                  style={{ margin: "10px auto -20px auto" }}
+                />
+                <Header as="h4" content={Name} textAlign="center" />
+              </Table.Cell>
+              <Table.Cell singleLine textAlign="center">
+                <Header as="h2" content={Position} />
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <Header
+                  as="h2"
+                  content={Games === 0 ? 0 : fantasyPoints}
+                />
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <Button
+                  onClick={() => this.addPlayer({
+                    PlayerID,
+                    Name,
+                    Position,
+                    PhotoUrl,
+                    fantasyPoints,
+                  })}
+                  disabled={this.state.length<10}
+                  color="blue"
+                  content="Add player to team"
+                  size="mini"
+                />
+              </Table.Cell>
+            </Table.Row>
+          );
+        }
+      );
     }
   };
 
@@ -199,17 +159,17 @@ class AllPlayers extends Component {
             <Table.Row>
               <Table.HeaderCell               
               sorted={column === 'Name' ? direction : null}
-              onClick={this.handleSort('Name')}
+              onClick={() => this.props.sortPlayersByName(this.props.direction)}
               textAlign="center"
               >Name</Table.HeaderCell>
               <Table.HeaderCell 
                 sorted={column === 'Position' ? direction : null}
-                onClick={this.handleSort('Position')}
+                onClick={ () => this.handleSort('Position')}
                 textAlign="center"
                 >Position</Table.HeaderCell>
               <Table.HeaderCell 
               sorted={column === 'fantasyPoints' ? direction : null}
-              onClick={this.handleSort('fantasyPoints')}
+              onClick={ () => this.handleSort('fantasyPoints')}
               textAlign="center">Fantasy Points</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">Add to team</Table.HeaderCell>
             </Table.Row>
@@ -229,9 +189,7 @@ class AllPlayers extends Component {
 }
 
 function mapStateToProps({
-  playerStats: { playerStats, GET_ALL_PLAYER_STATS_ERROR },
-}) {
-  return { playerStats, GET_ALL_PLAYER_STATS_ERROR };
-}
+  playerStats: { playerStats, GET_ALL_PLAYER_STATS_ERROR, direction },
+}) {return { playerStats, GET_ALL_PLAYER_STATS_ERROR, direction };}
 
-export default connect(mapStateToProps, { getAllPlayerStats })(AllPlayers);
+export default connect(mapStateToProps, { getAllPlayerStats, sortPlayersByName })(AllPlayers);

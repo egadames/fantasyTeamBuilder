@@ -14,7 +14,7 @@ app.use(routes);
 require('./services/passport');
 
 // Connect database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/reduxTodo',
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nba',
   {
     useNewUrlParser: true,
     useCreateIndex: true,
