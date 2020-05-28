@@ -1,7 +1,9 @@
-// const Todo = require('./Todo');
+const Player = require('./Player');
+const Team = require('./Team');
 const User = require('./User');
 
 module.exports = {
-  // Todo,
+  Player,
+  Team,
   User,
 };

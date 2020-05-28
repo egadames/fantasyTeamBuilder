@@ -19,17 +19,13 @@ const stats = playerStats.map(
     Points,
     Games,
   }) => {
+    const fantasyPoints = Games === 0 ? 0 : Math.ceil((Points + Rebounds * 1.2 + Assists * 1.5 + Steals * 3 + BlockedShots * 3 + Turnovers * -1) / Games);
     return {
       PlayerID,
       Name,
       Position,
       Team,
-      Rebounds,
-      Assists,
-      Steals,
-      Turnovers,
-      BlockedShots,
-      Points,
+      fantasyPoints,
       Games,
     };
   },
