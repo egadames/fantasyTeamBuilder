@@ -4,15 +4,16 @@ import {
   Image,
   Pagination,
   Button,
-  Card,
+  Dropdown,
   Segment,
   Table,
   Container,
   Grid,
+  Label,
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import _ from "lodash";
-import { getAllPlayerStats, sortPlayersByName, getAllTeams } from "../../actions/createTeam";
+import { getAllPlayerStats, sortPlayers, getAllTeams, filterData } from "../../actions/createTeam";
 import axios from "axios";
 import { GET_ALL_TEAMS_ERROR, GET_ALL_PLAYER_STATS_ERROR, GET_ALL_TEAMS } from "../../actions/types";
 
@@ -51,6 +52,19 @@ class AllPlayers extends Component {
     }
   };
 
+  handleDelete = async (id) => {
+    const data = this.state.newTeam;
+    let filteredList =  data.filter(function(player) {
+      return player.PlayerID !== id;
+    });
+    try {
+      this.setState({ newTeam: filteredList });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
   renderLoadBox = () => {
     const add = (a, b) => a + b;
     const fantasyPoints = _.map(this.state.newTeam, "fantasyPoints");
@@ -67,14 +81,18 @@ class AllPlayers extends Component {
           <Grid.Row>
             {this.state.newTeam.map((player) => (
               <Grid.Column width={3}>
-                <Card>
+                <Segment >
+                  <Label
+                  attached='top right' 
+                  onClick ={ () => this.handleDelete(player.PlayerID)}
+                  icon = 'delete'></Label>
                   <Image
                     size="tiny"
                     style={{ margin: "10px auto -20px auto" }}
                     src={player.PhotoUrl}
                   />
                   <Header as="p" content={player.Name} textAlign="center" />
-                </Card>
+                </Segment>
               </Grid.Column>
             ))}
           </Grid.Row>
@@ -84,15 +102,25 @@ class AllPlayers extends Component {
   };
 
   addPlayer = (player) => {
-    const data = JSON.stringify(this.state.newTeam);
-    console.log(data);
-    console.log(data.includes(player.Name));
+    // const data = JSON.stringify(this.state.newTeam);
+    // console.log(data);
+    // console.log(data.includes(player.Name));
+    // if(data.includes(player.Name)){
+
+    // }
 
     this.setState({ newTeam: [...this.state.newTeam, player] });
   };
 
+  // filterData = (filter) => {
+  //   const names = this.props.playerStats.map((player) => {
+  //     player.text= player.Name
+  //     return player;
+  //   });
+  // }
+
+
   renderPlayerTable = () => {
-    console.log(this.props.playerStats);
     if (this.props.playerStats.length === 0) {
       return <Header content="No players yet" />;
     } else {
@@ -139,8 +167,17 @@ class AllPlayers extends Component {
   };
 
   render() {
-    console.log(this.props.teams)
-    const { column, direction } = this.state;
+    console.log(this.props)
+    // const { column, direction } = this.state;
+    const names = this.props.playerStats.map((player) => {
+      player.text= player.Name
+      return player;
+    });
+    const positions = _.map(this.props.playerStats, 'Position')
+    const points = _.map(this.props.playerStats, 'fantasyPoints')
+    //   console.log(positions)
+
+    // console.log(points)
     return (
       <Container>
         {this.renderLoadBox()}
@@ -162,24 +199,29 @@ class AllPlayers extends Component {
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell
-                    sorted={column === "Name" ? direction : null}
+                    // sorted={column === "Name" ? direction : null}
                     onClick={() =>
-                      this.props.sortPlayersByName(this.props.direction)
+                      this.props.sortPlayers(this.props.direction, 'Name')
                     }
                     textAlign="center"
+                    content="Name"
                   >
-                    Name
+
                   </Table.HeaderCell>
                   <Table.HeaderCell
-                    sorted={column === "Position" ? direction : null}
-                    onClick={() => this.handleSort("Position")}
+                    // sorted={column === "Position" ? direction : null}
+                    onClick={() =>
+                      this.props.sortPlayers(this.props.direction, 'Position')
+                    }
                     textAlign="center"
                   >
                     Position
                   </Table.HeaderCell>
                   <Table.HeaderCell
-                    sorted={column === "fantasyPoints" ? direction : null}
-                    onClick={() => this.handleSort("fantasyPoints")}
+                    // sorted={column === "fantasyPoints" ? direction : null}
+                    onClick={() =>
+                      this.props.sortPlayers(this.props.direction, 'fantasyPoints')
+                    }                    
                     textAlign="center"
                   >
                     Fantasy Points
@@ -187,6 +229,17 @@ class AllPlayers extends Component {
                   <Table.HeaderCell textAlign="center">
                     Add to team
                   </Table.HeaderCell>
+                </Table.Row>
+                <Table.Row>
+                <Dropdown
+                  placeholder='Select a Player'
+                  fluid
+                  search
+                  clearable
+                  selection
+                  onSearchChange = {() => this.props.filterData('shit',names)}
+                  options={names}
+  />
                 </Table.Row>
               </Table.Header>
               <Table.Body>{this.renderPlayerTable()}</Table.Body>
@@ -212,6 +265,7 @@ function mapStateToProps({
 
 export default connect(mapStateToProps, {
   getAllPlayerStats,
-  sortPlayersByName,
+  sortPlayers,
   getAllTeams,
+  filterData,
 })(AllPlayers);
