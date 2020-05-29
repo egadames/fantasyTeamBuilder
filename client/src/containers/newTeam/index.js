@@ -19,11 +19,13 @@ import { GET_ALL_TEAMS_ERROR, GET_ALL_PLAYER_STATS_ERROR, GET_ALL_TEAMS } from "
 
 class AllPlayers extends Component {
   state = {
+    searchQuery: '',
     newTeam: [],
     // column: null,
     activePage: 1,
     start: 0,
     end: 10,
+    value: '',
   };
 
   componentDidMount() {
@@ -102,9 +104,9 @@ class AllPlayers extends Component {
   };
 
   addPlayer = (player) => {
-    // const data = JSON.stringify(this.state.newTeam);
-    // console.log(data);
-    // console.log(data.includes(player.Name));
+    const data = JSON.stringify(this.state.newTeam);
+    console.log(data);
+    console.log(data.includes(player.Name));
     // if(data.includes(player.Name)){
 
     // }
@@ -154,7 +156,7 @@ class AllPlayers extends Component {
                       fantasyPoints,
                     })
                   }
-                  disabled={this.state.length < 10}
+                  disabled={this.state.newTeam.length > 9}
                   color="blue"
                   content="Add player to team"
                   size="mini"
@@ -166,15 +168,30 @@ class AllPlayers extends Component {
     }
   };
 
-  render() {
-    console.log(this.props)
-    // const { column, direction } = this.state;
+  // handleChange = (e, { searchQuery, value }) =>
+  //   this.setState({ searchQuery, value })
+
+
+    onChange = (e, { searchQuery, value }) => async dispatch => {
+  // this.setState({ searchQuery })
+console.log(searchQuery)
+  // dispatch({type: GET_ALL_PLAYER_STATS,payload: sortedData, direction});
+
+}
+
+  handleSearchChange = (e, { searchQuery }) => this.setState({ searchQuery })
+
+  render()  {
+    const { searchQuery } = this.state
+    console.log(searchQuery)
     const names = this.props.playerStats.map((player) => {
       player.text= player.Name
       return player;
     });
-    const positions = _.map(this.props.playerStats, 'Position')
-    const points = _.map(this.props.playerStats, 'fantasyPoints')
+    // const names =  _.map(this.props.playerStats, 'Name')
+    // console.log(names)
+    // const positions = _.map(this.props.playerStats, 'Position')
+    // const points = _.map(this.props.playerStats, 'fantasyPoints')
     //   console.log(positions)
 
     // console.log(points)
@@ -199,7 +216,6 @@ class AllPlayers extends Component {
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell
-                    // sorted={column === "Name" ? direction : null}
                     onClick={() =>
                       this.props.sortPlayers(this.props.direction, 'Name')
                     }
@@ -209,7 +225,6 @@ class AllPlayers extends Component {
 
                   </Table.HeaderCell>
                   <Table.HeaderCell
-                    // sorted={column === "Position" ? direction : null}
                     onClick={() =>
                       this.props.sortPlayers(this.props.direction, 'Position')
                     }
@@ -218,7 +233,6 @@ class AllPlayers extends Component {
                     Position
                   </Table.HeaderCell>
                   <Table.HeaderCell
-                    // sorted={column === "fantasyPoints" ? direction : null}
                     onClick={() =>
                       this.props.sortPlayers(this.props.direction, 'fantasyPoints')
                     }                    
@@ -231,15 +245,19 @@ class AllPlayers extends Component {
                   </Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
-                <Dropdown
-                  placeholder='Select a Player'
+                {/* <Dropdown
                   fluid
-                  search
-                  clearable
-                  selection
-                  onSearchChange = {() => this.props.filterData('shit',names)}
                   options={names}
-  />
+                  placeholder='Select a Player'
+                  search
+                  searchQuery={searchQuery}
+                  selection
+                  // value={value}
+                  onSearchChange={this.handleSearchChange}
+                  // onChange={this.onChange}
+                  onChange={this.props.filterData(searchQuery)}
+                  // onSearchChange = {() => this.props.filterData(this.props.event,names)}
+  /> */}
                 </Table.Row>
               </Table.Header>
               <Table.Body>{this.renderPlayerTable()}</Table.Body>
@@ -269,3 +287,11 @@ export default connect(mapStateToProps, {
   getAllTeams,
   filterData,
 })(AllPlayers);
+
+
+// handleSearchChange = (e, { searchQuery }) => async dispatch => {
+//   this.setState({ searchQuery })
+// console.log(this.state.searchQuery)
+//   // dispatch({type: GET_ALL_PLAYER_STATS,payload: sortedData, direction});
+
+// }

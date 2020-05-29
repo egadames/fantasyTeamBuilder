@@ -1,5 +1,6 @@
 import {GET_ALL_PLAYER_STATS, GET_ALL_PLAYER_STATS_ERROR, GET_ALL_TEAMS, GET_ALL_TEAMS_ERROR} from "../types";
 import axios from 'axios';
+import _ from "lodash";
 
 // import playerStats from '../../Data/Player/playerStats.json'
 
@@ -21,21 +22,18 @@ export const getAllTeams = () => async dispatch => {
 	}
 }
 
-
-
- export const filterData = (event, newData) => async dispatch => {
-	 console.log(event)
-	 console.log(newData)
-	// const { data } = await axios.get('/api/player/test');
-	// let filteredData;
-	// if (column === 'Name') {
-	// 	filteredData =	data.map((player) => {
-	// 		player.text= player.Name
-	// 	return player
-	// });
-	// } 
-	// console.log(filteredData)
-	}
+ export const filterData = (searchQuery) => async dispatch => {
+	//  console.log(searchQuery)
+	// 	const { data } = await axios.get('/api/player/test');
+	// 	// let filteredData = JSON.stringify(data);
+	// 	let filteredData = _.filter(data, ['Name', searchQuery]);
+	// 	console.log(filteredData)
+  //   let shit =  data.filter(item => {
+	// 		let values = Object.values(item).join("").toLowerCase();
+	// 		return values.indexOf(filter.toLowerCase()) !== -1;
+	// 	// console.log(filteredData)
+	// }
+}
 	
 	export const sortPlayers = (direction, column) => async dispatch => {
 		try {
