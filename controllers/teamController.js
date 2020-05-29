@@ -2,7 +2,6 @@ const { Team } = require('../models/index');
 
 module.exports = {
   createTeam: async (req, res) => {
-    console.log(req.body);
     // const { PlayerID, Name, Position, PhotoUrl, fantasyPoints } = req.body;
     try {
       // See if a user with the given email exists
@@ -31,5 +30,24 @@ module.exports = {
       return res.status(403).json({ error });
     }
   },
-  // signIn: (req, res) => res.json({ token: tokenForUser(req.user) }),
+  deleteTeam: async (req, res) => {
+    // grab todoId from req.params
+    const { teamId } = req.params;
+    try {
+      const teamToDelete = await Team.findById(teamId);
+      if (!teamToDelete) {
+        return res.status(401).json({ error: 'The team with that Id' });
+      }
+      // Check if the todo does not belong to the user.
+      // if it doesnt, do not allow the user to delete it
+      // if (req.user._id.toString() !== teamToDelete.user.toString()) {
+      //   return res.status(401).json({ error: "You cannot delete a todo that's not yours" });
+      // // }
+      const deletedTeam = await Team.findByIdAndDelete(teamId);
+      // // Respond back with the deleted todo
+      return res.json(deletedTeam);
+    } catch (error) {
+      return res.status(403).json({ error });
+    }
+  },
 };
