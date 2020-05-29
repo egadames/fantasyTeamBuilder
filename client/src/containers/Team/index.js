@@ -19,18 +19,18 @@ class AllTeams extends Component {
     this.props.getAllTeams();
   }
 
-  handleDelete = async (id) => {
-    const data = this.props.teams;
-    let filteredList =  data.filter(function(player) {
-      return player._id !== id;
-    });
-    // try {
-    //   this.setState({ newTeam: filteredList });
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    console.log(filteredList)
-  };
+  // handleDelete = async (id) => {
+  //   const data = this.props.teams;
+  //   let filteredList =  data.filter(function(player) {
+  //     return player._id !== id;
+  //   });
+  //   // try {
+  //   //   this.setState({ newTeam: filteredList });
+  //   // } catch (e) {
+  //   //   console.log(e);
+  //   // }
+  //   console.log(filteredList)
+  // };
 
   renderLoadBox = () => {
     // const add = (a, b) => a + b;

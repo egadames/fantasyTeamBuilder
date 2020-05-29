@@ -44,8 +44,8 @@ class AllPlayers extends Component {
   onSubmit = async (dispatch) => {
     const data = this.state.newTeam;
     try {
+      console.log(this.props)
       const { newTeam } = await axios.post("/api/team/", data);
-      console.log(newTeam);
       // localStorage.setItem('token', data.token);
       dispatch({ type: GET_ALL_TEAMS, payload: newTeam});
       this.props.history.push("/");
@@ -107,11 +107,10 @@ class AllPlayers extends Component {
     const data = JSON.stringify(this.state.newTeam);
     console.log(data);
     console.log(data.includes(player.Name));
-    // if(data.includes(player.Name)){
-
-    // }
-
-    this.setState({ newTeam: [...this.state.newTeam, player] });
+    if(!data.includes(player.Name)){
+      this.setState({ newTeam: [...this.state.newTeam, player] });
+    }
+    return "NOT ALLOWED";
   };
 
   // filterData = (filter) => {
@@ -120,7 +119,6 @@ class AllPlayers extends Component {
   //     return player;
   //   });
   // }
-
 
   renderPlayerTable = () => {
     if (this.props.playerStats.length === 0) {
@@ -188,13 +186,8 @@ console.log(searchQuery)
       player.text= player.Name
       return player;
     });
-    // const names =  _.map(this.props.playerStats, 'Name')
-    // console.log(names)
     // const positions = _.map(this.props.playerStats, 'Position')
     // const points = _.map(this.props.playerStats, 'fantasyPoints')
-    //   console.log(positions)
-
-    // console.log(points)
     return (
       <Container>
         {this.renderLoadBox()}
