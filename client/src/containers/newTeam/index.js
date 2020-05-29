@@ -42,13 +42,17 @@ class AllPlayers extends Component {
   };
 
   onSubmit = async (dispatch) => {
-    const data = this.state.newTeam;
+    const team = this.state.newTeam;
+    console.log(team)
+    const points = _.sumBy(team, 'fantasyPoints')
     try {
-      console.log(this.props)
-      const { newTeam } = await axios.post("/api/team/", data);
+      const {data}  = await axios.post("/api/team/", {team, points});
+      console.log(data)
+
       // localStorage.setItem('token', data.token);
-      dispatch({ type: GET_ALL_TEAMS, payload: newTeam});
+      // dispatch({ GET_ALL_TEAMS, payload: data});
       this.props.history.push("/");
+
     } catch (e) {
       console.log(e);
     }
@@ -105,8 +109,6 @@ class AllPlayers extends Component {
 
   addPlayer = (player) => {
     const data = JSON.stringify(this.state.newTeam);
-    console.log(data);
-    console.log(data.includes(player.Name));
     if(!data.includes(player.Name)){
       this.setState({ newTeam: [...this.state.newTeam, player] });
     }
@@ -170,12 +172,14 @@ class AllPlayers extends Component {
   //   this.setState({ searchQuery, value })
 
 
-    onChange = (e, { searchQuery, value }) => async dispatch => {
+    onChange = (e, { searchQuery, value }) => {
   // this.setState({ searchQuery })
-console.log(searchQuery)
+  //  console.log(e.target.value);
+  //  console.log(searchQuery);
+      this.setState({ searchQuery, value })
+      this.props.filterData(e.target.value);
   // dispatch({type: GET_ALL_PLAYER_STATS,payload: sortedData, direction});
-
-}
+  }
 
   handleSearchChange = (e, { searchQuery }) => this.setState({ searchQuery })
 
@@ -238,19 +242,21 @@ console.log(searchQuery)
                   </Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
-                {/* <Dropdown
+                <Dropdown
                   fluid
                   options={names}
+                  selection
                   placeholder='Select a Player'
                   search
+                  onChange={this.onChange}
+
                   searchQuery={searchQuery}
-                  selection
                   // value={value}
-                  onSearchChange={this.handleSearchChange}
+                  onSearchChange={this.onChange}
+
                   // onChange={this.onChange}
-                  onChange={this.props.filterData(searchQuery)}
                   // onSearchChange = {() => this.props.filterData(this.props.event,names)}
-  /> */}
+  />
                 </Table.Row>
               </Table.Header>
               <Table.Body>{this.renderPlayerTable()}</Table.Body>

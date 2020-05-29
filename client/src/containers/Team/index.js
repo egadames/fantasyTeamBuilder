@@ -13,6 +13,9 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { getAllTeams, deleteTeam } from "../../actions/createTeam";
 
+
+import requireAuth from './../../hoc/requireAuth';
+
 class AllTeams extends Component {
 
   componentDidMount() {
@@ -86,4 +89,4 @@ function mapStateToProps({
   return { teams };
 }
 
-export default connect(mapStateToProps, {getAllTeams, deleteTeam})(AllTeams);
+export default requireAuth(connect(mapStateToProps, {getAllTeams, deleteTeam})(AllTeams));

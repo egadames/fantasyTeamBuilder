@@ -11,6 +11,7 @@ export default combineReducers({
   auth: authReducer,
   playerStats: createReducer,
   teams: createReducer,
+  currentTeam: createReducer,
   form: formReducer,
   // form: formReducer.plugin({
   //   addTodo: (state, action) => {

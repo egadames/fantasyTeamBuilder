@@ -8,6 +8,10 @@ export const GET_ALL_TEAMS_ERROR = 'GET_ALL_TEAMS_ERROR';
 
 export const DELETE_TEAM_BY_ID_ERROR = 'DELETE_TEAM_BY_ID_ERROR';
 
+export const ADD_PLAYER_TO_TEAM = 'ADD_PLAYER_TO_TEAM'
+export const ADD_PLAYER_TO_TEAM_ERROR = 'ADD_PLAYER_TO_TEAM_ERROR';
+
+
 // Authenticate user action types
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_USER_ERROR = 'AUTH_USER_ERROR';
