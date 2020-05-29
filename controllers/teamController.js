@@ -1,20 +1,28 @@
-const { Team } = require('../models/index');
+const { User, Team } = require('../models/index');
 
 module.exports = {
   createTeam: async (req, res) => {
-    // const { PlayerID, Name, Position, PhotoUrl, fantasyPoints } = req.body;
+    const { team, points } = req.body;
     try {
       // See if a user with the given email exists
       // const existingTeam = await User.findOne({ email });
       // if (existingUser) { return res.status(403).json({ error: 'User already exists' }); }
-      const newteam = await new Team({ team: req.body }).save();
+      const newTeam = await new Team({ team, points }).save();
+      // const teams = await Team.find();
+      // teams.push(newTeam)
+      // console.log(req);
+      // req.user.todos.push(newTodo);
+      // await req.user.save();
+      // const user = await User.findById(userId)
+      // console.log(user)
       // Eventually we will send a token
       // return res.json({ token: tokenForUser(user) });
 
-      // const newTodo = await new Todo({ text, user: req.user._id }).save();
       // req.user.todos.push(newTodo);
       // await req.user.save();
-      return res.status(200).json(newteam);
+      const teams = await Team.find();
+
+      return res.status(200).json(teams);
     } catch (e) {
       return res.status(403).json({ e });
     }
@@ -43,9 +51,10 @@ module.exports = {
       // if (req.user._id.toString() !== teamToDelete.user.toString()) {
       //   return res.status(401).json({ error: "You cannot delete a todo that's not yours" });
       // // }
-      const deletedTeam = await Team.findByIdAndDelete(teamId);
-      // // Respond back with the deleted todo
-      return res.json(deletedTeam);
+      await Team.findByIdAndDelete(teamId);
+      // // Respond back with the deleted team
+      const teams = await Team.find();
+      return res.json(teams);
     } catch (error) {
       return res.status(403).json({ error });
     }
