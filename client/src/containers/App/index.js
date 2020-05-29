@@ -11,9 +11,9 @@ import "./style.css";
 // import AllTodosList from '../AllTodosList';
 // import UserTodoList from '../UserTodoList';
 
-// import SignUp from '../SignUp';
-// import SignIn from '../SignIn';
-// import SignOut from '../SignOut';
+import SignUp from '../SignUp';
+import SignIn from '../SignIn';
+import SignOut from '../SignOut';
 
 import Navbar from './../../components/Navbar';
 import Homepage from  "../../components/Homepage";
@@ -27,8 +27,9 @@ class App extends Component {
       <div>
           <Navbar/>
           <Route exact path='/' component={Homepage}/>
-          {/* <Route exact path='/signin' component={SignIn}/>
-          <Route exact path='/signout' component={SignOut}/> */}
+          <Route exact path='/signup' component={SignUp}/>
+          <Route exact path='/signin' component={SignIn}/>
+          <Route exact path='/signout' component={SignOut}/>
           <Route exact path='/team' component={newTeam}/>
           <Route exact path='/viewteams' component={Teams}/>
           {/* <Route exact path='/counter' component={Counter}/> */}
