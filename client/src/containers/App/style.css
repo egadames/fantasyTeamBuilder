@@ -1,6 +1,7 @@
 .homapgecontainer {
-  
-  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+  background-image: url("https://wheatlandexpress.com/wp-content/uploads/2019/06/basketball-court.jpg");
+  background-repeat: no-repeat, repeat;
+  background-color: #cccccc;
   color:white;
   height: 85vh;
 }
