@@ -7,10 +7,11 @@ import {
   Container,
   Grid,
   Button,
+  Label,
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import _ from "lodash";
-import { getAllTeams } from "../../actions/createTeam";
+import { getAllTeams, deleteTeam } from "../../actions/createTeam";
 
 class AllTeams extends Component {
 
@@ -18,20 +19,36 @@ class AllTeams extends Component {
     this.props.getAllTeams();
   }
 
+  handleDelete = async (id) => {
+    const data = this.props.teams;
+    let filteredList =  data.filter(function(player) {
+      return player._id !== id;
+    });
+    // try {
+    //   this.setState({ newTeam: filteredList });
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    console.log(filteredList)
+  };
+
   renderLoadBox = () => {
-    const add = (a, b) => a + b;
-    const fantasyPoints = _.map(this.props.teams, "fantasyPoints");
-    const sum = fantasyPoints.length === 0 ? 0 : fantasyPoints.reduce(add);
+    // const add = (a, b) => a + b;
+    // const fantasyPoints = _.map(this.props.teams, "fantasyPoints");
+    // const sum = fantasyPoints.length === 0 ? 0 : fantasyPoints.reduce(add);
     return (
       this.props.teams.map((currentTeam) => (
-      <Container style={{ border: "solid", margin: "auto" }}>
-        {        console.log(currentTeam)
-}
+     <Container style={{ border: "solid", margin: "auto" }}>
         <Segment clearing>
-          <Button onClick={() => this.onSubmit()}>Make Team</Button>
-          <Header as="h1" floated="right">
-            Total Fantasy Points: {sum}
+          {/* <Button onClick={() => this.onSubmit()}>Make Team</Button> */}
+          <Header as="h1" >
+            Total Fantasy Points: {45}
           </Header>
+          <Label
+            attached='top right' 
+            onClick ={ () => this.props.deleteTeam(currentTeam._id)}
+            icon = 'delete'>
+            </Label>
         </Segment>
         <Grid centered divided="vertically">
           <Grid.Row>
@@ -69,4 +86,4 @@ function mapStateToProps({
   return { teams };
 }
 
-export default connect(mapStateToProps, {getAllTeams})(AllTeams);
+export default connect(mapStateToProps, {getAllTeams, deleteTeam})(AllTeams);

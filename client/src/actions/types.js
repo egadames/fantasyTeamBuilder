@@ -6,6 +6,8 @@ export const GET_ALL_PLAYER_STATS_ERROR = 'GET_ALL_PLAYER_STATS_ERROR';
 export const GET_ALL_TEAMS = 'GET_ALL_TEAMS';
 export const GET_ALL_TEAMS_ERROR = 'GET_ALL_TEAMS_ERROR';
 
+export const DELETE_TEAM_BY_ID_ERROR = 'DELETE_TEAM_BY_ID_ERROR';
+
 // Authenticate user action types
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_USER_ERROR = 'AUTH_USER_ERROR';
@@ -13,6 +15,8 @@ export const AUTH_USER_ERROR = 'AUTH_USER_ERROR';
 // TO DELETE EVENTUALLY
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
+
+
 // export const GET_ALL_TODOS = 'GET_ALL_TODOS';
 // export const GET_ALL_TODOS_ERROR = 'GET_ALL_TODOS_ERROR';
 // export const GET_USER_TODOS = 'GET_USER_TODOS';
