@@ -20,14 +20,14 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  todos: [{
+  teams: [{
     type: Schema.Types.ObjectId,
-    ref: 'Todo',
+    ref: 'Team',
   }],
 });
 
-UserSchema.methods.toJSON = function() {
-  var obj = this.toObject();
+UserSchema.methods.toJSON = () => {
+  const obj = this.toObject();
   delete obj.password;
   return obj;
 };
