@@ -13,6 +13,9 @@ import Homepage from  "../../components/Homepage";
 import Footer from"../../components/Footer";
 import newTeam from '../newTeam';
 import Teams from '../Team'
+// import NewTeamForm from '../../Data/Team/NewTeamForm';
+// import players from '../../Data/Player/players';
+
 
 class App extends Component {
   render() {
@@ -25,6 +28,9 @@ class App extends Component {
           <Route exact path='/signout' component={SignOut}/>
           <Route exact path='/team' component={newTeam}/>
           <Route exact path='/viewteams' component={Teams}/>
+          {/* <Route exact path='/teamform' component={NewTeamForm}/>
+          <Route exact path='/players' component={players}/> */}
+
           {/* <Route exact path='/counter' component={Counter}/> */}
           <Footer />
       </div>

@@ -33,7 +33,6 @@ class SignUp extends Component {
     )
   }
 
-
   renderPassword = ({ input, meta }) => {
     return (
       <Form.Input

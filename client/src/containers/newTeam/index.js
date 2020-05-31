@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import _ from "lodash";
-import { getAllTeams } from "../../actions/team";
+import { getAllTeams, addTeam } from "../../actions/team";
 import {
   getAllPlayerStats,
   sortPlayers,
@@ -11,9 +11,10 @@ import {
 } from "../../actions/player";
 import axios from "axios";
 
-
 import FullTable from '../../components/FullTable';
 import CreateTeamBox from '../../components/CreateTeamBox'
+
+import requireAuth from './../../hoc/requireAuth';
 
 class AllPlayers extends Component {
   state = {
@@ -102,7 +103,7 @@ class AllPlayers extends Component {
       <Container>
         <CreateTeamBox
           newTeam = {this.state.newTeam}
-          onSubmit = {this.onSubmit}
+          onSubmit = {this.props.addTeam}
           handleDelete = {this.handleDelete}
         />
         <FullTable
@@ -134,10 +135,11 @@ function mapStateToProps({
   return { playerStats, GET_ALL_PLAYER_STATS_ERROR, direction, teams };
 }
 
-export default connect(mapStateToProps, {
+export default requireAuth(connect(mapStateToProps, {
   getAllPlayerStats,
   sortPlayers,
   getAllTeams,
   filterDataByName,
   filterDataByPosition,
-})(AllPlayers);
+  addTeam,
+})(AllPlayers));

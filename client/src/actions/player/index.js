@@ -1,6 +1,8 @@
 import {
 	GET_ALL_PLAYER_STATS, 
-	GET_ALL_PLAYER_STATS_ERROR, 
+	GET_ALL_PLAYER_STATS_ERROR,
+	// ADD_PLAYER_TO_TEAM,
+	// ADD_PLAYER_TO_TEAM_ERROR,
 } from "../types";
 import axios from 'axios';
 
@@ -13,9 +15,7 @@ export const getAllPlayerStats = () => async dispatch => {
 	}
 }
 
- export const filterDataByName = (searchQuery) => async dispatch => {
-	console.log(searchQuery)
-
+export const filterDataByName = (searchQuery) => async dispatch => {
 	 try {
 		let regex = new RegExp(searchQuery.toLowerCase());
 		const { data } = await axios.get('/api/player/test');
@@ -27,6 +27,19 @@ export const getAllPlayerStats = () => async dispatch => {
 		dispatch({type: GET_ALL_PLAYER_STATS_ERROR,	payload: e });
 	}
 }
+
+// onSubmit = async (dispatch) => {
+// 	const team = this.state.newTeam;
+// 	const points = _.sumBy(team, "fantasyPoints");
+// 	try {
+// 		const { data } = await axios.post("/api/team/", { team, points, headers: {'authorization': localStorage.getItem('token')}});
+// 		localStorage.setItem('token', data.token);
+// 		dispatch({ GET_ALL_TEAMS, payload: data});
+// 		this.props.history.push("/");
+// 	} catch (e) {
+// 		console.log(e);
+// 	}
+// };
 
 export const filterDataByPosition = (searchQuery) => async dispatch => {
   try {
