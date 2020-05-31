@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div>
-          <Navbar/>
+          <Navbar authenticated={this.props.authenticated} />
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/signup' component={SignUp}/>
           <Route exact path='/signin' component={SignIn}/>

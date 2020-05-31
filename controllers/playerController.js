@@ -1,9 +1,7 @@
 const playerStats = require('../client/src/Data/Player/playerStats.json');
 const playerInfo = require('../client/src/Data/Player/playerInfo.json');
 
-const info = playerInfo.map(({ PlayerID, PhotoUrl }) => {
-  return { PlayerID, PhotoUrl };
-});
+const info = playerInfo.map(({ PlayerID, PhotoUrl }) => ({ PlayerID, PhotoUrl }));
 
 const stats = playerStats.map(
   ({
@@ -19,7 +17,16 @@ const stats = playerStats.map(
     Points,
     Games,
   }) => {
-    const fantasyPoints = Games === 0 ? 0 : Math.ceil((Points + Rebounds * 1.2 + Assists * 1.5 + Steals * 3 + BlockedShots * 3 + Turnovers * -1) / Games);
+    const fantasyPoints = Games === 0 ? 0
+      : Math.ceil(
+        (Points
+          + Rebounds * 1.2
+          + Assists * 1.5
+          + Steals * 3
+          + BlockedShots * 3
+          + Turnovers * -1)
+          / Games,
+      );
     return {
       PlayerID,
       Name,
@@ -32,7 +39,7 @@ const stats = playerStats.map(
 );
 
 const mergeById = (a1, a2) => a1.map((itm) => ({
-  ...a2.find((item) => (item.PlayerID === itm.PlayerID) && item),
+  ...a2.find((item) => item.PlayerID === itm.PlayerID && item),
   ...itm,
 }));
 

@@ -1,112 +1,64 @@
-// import React, { Component } from 'react';
-// import { Field, reduxForm, SubmissionError } from 'redux-form';
-// import { Form, Segment, Button } from 'semantic-ui-react';
-// import { email, required } from 'redux-form-validators';
-// import axios from 'axios';
-// import { AUTH_USER } from '../../actions/types';
-
-// class SignIn extends Component {
-//   // When the user submits the form, send the formValues to /api/auth/signin
-//   onSubmit = async (formValues, dispatch) => {
-//     try {
-//       const { data } = await axios.post('/api/auth/signin', formValues);
-//       localStorage.setItem('token', data.token);
-//       dispatch({ type: AUTH_USER, payload: data.token });
-//       this.props.history.push('/counter');
-//     } catch (e) {
-//       throw new SubmissionError({
-//         email: 'Wrong email',
-//         password: 'Wrong password',
-//         _error: 'Signin failed!'
-//       });
-//     }
-//   }
-//   // set the token coming from data into localStorage under the key 'token'
-//   // Dispatch the action to the reducer to set the token as the state for authentication
-//   // Redirect the user to the '/counter' route
-//   renderEmail = ({ input, meta }) => {
-//     return (
-//       <Form.Input
-//         {...input}
-//         fluid
-//         error={ meta.touched && meta.error }
-//         icon='user'
-//         iconPosition='left'
-//         autoComplete='off'
-//         placeholder='Email address'
-//       />
-//     )
-//   }
-//   renderPassword = ({ input, meta }) => {
-//     return (
-//       <Form.Input
-//         {...input}
-//         type='password'
-//         fluid
-//         error={ meta.touched && meta.error }
-//         icon='lock'
-//         iconPosition='left'
-//         autoComplete='off'
-//         placeholder='password'
-//       />
-//     )
-//   }
-//   render() {
-//     const { handleSubmit, invalid, submitting, submitFailed } = this.props;
-//     return (
-//       <Form size='large' onSubmit={handleSubmit(this.onSubmit)}>
-//         <Segment stacked>
-//           <Field
-//             name='email'
-//             component={this.renderEmail}
-//             validate={
-//               [
-//                 required({ msg: 'Email is required' }),
-//                 email({ msg: 'You must provide a valid email address' })
-//               ]
-//             }
-//           />
-//           <Field
-//             name='password'
-//             component={this.renderPassword}
-//             validate={
-//               [
-//                 required({ msg: 'You must provide a password' })
-//               ]
-//             }
-//           />
-//           <Button
-//             content='Sign In'
-//             color='teal'
-//             fluid
-//             size='large'
-//             type='submit'
-//             disabled={ invalid || submitting || submitFailed }
-//           />
-//         </Segment>
-//       </Form>
-//     )
-//   }
-// }
-
-// export default reduxForm({ form: 'SignIn '})(SignIn);
-
-
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import { Avatar, CssBaseline, Button, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography  } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { email, required } from 'redux-form-validators';
 
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+const renderEmail = ({ input, meta }) => {
+  return (
+    <TextField
+      {...input}
+      variant="outlined"
+      margin="normal"
+      required
+      fullWidth
+      error={ meta.touched && meta.error }
+      id="email"
+      label="Email Address"
+      name="email"
+      autoComplete="email"
+      autoFocus
+    />
+  )
+}
+
+const renderPassword = ({ input, meta }) => {
+  return (
+    <TextField
+    {...input}
+    variant="outlined"
+    margin="normal"
+    error={ meta.touched && meta.error }
+    required
+    fullWidth
+    name="password"
+    label="Password"
+    type="password"
+    id="password"
+    autoComplete="current-password"
+  />
+  )
+}
+
+
+const onSubmit = async(formValues, dispatch) => {
+  console.log("SUBMIT GOT HIT BRO")
+  // try {
+  //   const { data } = await axios.post('/api/auth/signin', formValues);
+  //   console.log(data)
+  //   localStorage.setItem('token', data.token);
+  //   dispatch({ type: AUTH_USER, payload: data.token});
+  //   this.props.history.push('/counter');
+  // } catch (e) {
+  //   throw new SubmissionError({
+  //     email: 'Wrong Email',
+  //     password: 'Wrong Password',
+  //     _error: 'SignIn Failed'
+  //   });
+  // }
+}
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -151,8 +103,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+ const SignInSide = () => {
   const classes = useStyles();
+  const { handleSubmit, invalid, submitting, submitFailed } = this.props;
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -167,28 +120,25 @@ export default function SignInSide() {
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
+          <Field
+              name='email'
+              component={renderEmail}
+              validate={
+                [
+                  required({ msg: 'Email is required' }),
+                  email({ msg: 'You must provide a valid email address' })
+                ]
+              }
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+            <Field
+                name='password'
+                component={renderPassword}
+                validate={
+                  [
+                    required({ msg: 'You must provide a password' })
+                  ]
+                }
+              />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -198,6 +148,8 @@ export default function SignInSide() {
               fullWidth
               variant="contained"
               color="primary"
+              onSubmit={handleSubmit(this.onSubmit)}
+              disabled={ invalid || submitting || submitFailed }
               className={classes.submit}
             >
               Sign In
@@ -223,3 +175,7 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+export default reduxForm({ form: 'SignIn '})(SignInSide); 
+
+

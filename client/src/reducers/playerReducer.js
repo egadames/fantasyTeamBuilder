@@ -1,13 +1,11 @@
 import { 
 	GET_ALL_PLAYER_STATS, 
-	GET_ALL_PLAYER_STATS_ERROR, 
-	ADD_PLAYER_TO_TEAM,
-	ADD_PLAYER_TO_TEAM_ERROR,
+	GET_ALL_PLAYER_STATS_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
 	playerStats: [],
-	currentTeam: [],
+	// currentTeam: [],
 	GET_ALL_PLAYER_STATS_ERROR: '',
 	direction: 'asc'
 };
@@ -17,10 +15,6 @@ export default function (state = INITIAL_STATE, action) {
 			return {...state, playerStats: action.payload, GET_ALL_PLAYER_STATS_ERROR: '', direction: action.direction };
 		case GET_ALL_PLAYER_STATS_ERROR:
 			return {...state, GET_ALL_PLAYER_STATS_ERROR: action.payload };
-    case ADD_PLAYER_TO_TEAM:
-      return {...state, currentTeam: action.payload, ADD_PLAYER_TO_TEAM_ERROR: ''};
-    case ADD_PLAYER_TO_TEAM_ERROR:
-      return {...state, ADD_PLAYER_TO_TEAM_ERROR: action.payload };
     default:
     return state;
 	}
