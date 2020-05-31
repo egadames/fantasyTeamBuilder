@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import _ from "lodash";
-import { getAllTeams, addTeam } from "../../actions/team";
+import { getAllTeams, addTeam, addPlayer, getCurrentTeam } from "../../actions/team";
 import {
   getAllPlayerStats,
   sortPlayers,
@@ -10,6 +10,10 @@ import {
   filterDataByPosition,
 } from "../../actions/player";
 import axios from "axios";
+import { 
+  GET_ALL_TEAMS, 
+  ADD_PLAYER_TO_TEAM
+} from "../../actions/types";
 
 import FullTable from '../../components/FullTable';
 import CreateTeamBox from '../../components/CreateTeamBox'
@@ -29,6 +33,7 @@ class AllPlayers extends Component {
   componentDidMount() {
     this.props.getAllPlayerStats();
     this.props.getAllTeams();
+    this.props.getCurrentTeam();
   }
 
   handlePageChange = (event, data) => {
@@ -39,13 +44,16 @@ class AllPlayers extends Component {
     });
   };
 
+
   onSubmit = async (dispatch) => {
     const team = this.state.newTeam;
+    console.log('im hit bitch')
     const points = _.sumBy(team, "fantasyPoints");
     try {
       const { data } = await axios.post("/api/team/", { team, points });
-      // localStorage.setItem('token', data.token);
-      // dispatch({ GET_ALL_TEAMS, payload: data});
+      localStorage.setItem('token', data.token);
+      dispatch({ type: GET_ALL_TEAMS, payload: data}, {type: ADD_PLAYER_TO_TEAM, payload: []} );
+      dispatch({type: ADD_PLAYER_TO_TEAM, payload: []} );
       this.props.history.push("/");
     } catch (e) {
       console.log(e);
@@ -64,13 +72,15 @@ class AllPlayers extends Component {
     }
   };
 
-  addPlayer = (player) => {
-    const data = JSON.stringify(this.state.newTeam);
-    if (!data.includes(player.Name)) {
-      this.setState({ newTeam: [...this.state.newTeam, player] });
-    }
-    return;
-  };
+  // addPlayer = (player, dispatch) => {
+  //   console.log(dispatch)
+  //   const data = JSON.stringify(this.state.newTeam);
+  //   if (!data.includes(player.Name)) {
+  //     this.setState({ newTeam: [...this.state.newTeam, player] });
+  //     dispatch({type: ADD_PLAYER_TO_TEAM,	payload: player });
+  //   }
+  //   return;
+  // };
 
   onChange = (e, { searchQuery, value }) => {
     this.setState({ searchQuery, value });
@@ -99,10 +109,15 @@ class AllPlayers extends Component {
       { text: "PF", value: "PF" },
       { text: "SF", value: "SF" },
     ];
+    const {currentTeam} = this.props.currentTeam;
+    // test = this.props.currentTeam.currentTeam.map((player) => {
+    //   return console.log('MAP IS WORKING WTF')
+    // })
+    console.log(currentTeam)
     return (
       <Container>
         <CreateTeamBox
-          newTeam = {this.state.newTeam}
+          currentTeam = {this.props.currentTeam}
           onSubmit = {this.props.addTeam}
           handleDelete = {this.handleDelete}
         />
@@ -117,8 +132,8 @@ class AllPlayers extends Component {
           playerStats = {this.props.playerStats}
           start = {this.state.start}
           end = {this.state.end}
-          addPlayer = {this.addPlayer}
-          newTeam = {this.state.newTeam}
+          addPlayer = {this.props.addPlayer}
+          currentTeam = {this.props.currentTeam}
           activePage = {this.state.activePage}
           handlePageChange = {this.handlePageChange}
           value = {this.state.value}
@@ -131,8 +146,9 @@ class AllPlayers extends Component {
 function mapStateToProps({
   playerStats: { playerStats, GET_ALL_PLAYER_STATS_ERROR, direction },
   teams: { teams },
+  currentTeam: { currentTeam }
 }) {
-  return { playerStats, GET_ALL_PLAYER_STATS_ERROR, direction, teams };
+  return { playerStats, GET_ALL_PLAYER_STATS_ERROR, direction, teams, currentTeam };
 }
 
 export default requireAuth(connect(mapStateToProps, {
@@ -142,4 +158,6 @@ export default requireAuth(connect(mapStateToProps, {
   filterDataByName,
   filterDataByPosition,
   addTeam,
+  addPlayer,
+  getCurrentTeam,
 })(AllPlayers));

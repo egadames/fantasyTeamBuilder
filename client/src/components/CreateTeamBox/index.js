@@ -12,7 +12,8 @@ import _ from "lodash";
 
 
 export default (props) => {
-  const fantasyPoints = _.sumBy(props.newTeam, "fantasyPoints");
+  const fantasyPoints = _.sumBy(props.currentTeam, "fantasyPoints");
+  console.log()
   return (
     <Container style={{ border: "solid", margin: "auto", height: "71vh" }}>
       <Segment clearing>
@@ -22,9 +23,9 @@ export default (props) => {
         </Header>
       </Segment>
       <Grid centered divided="vertically">
-        <Grid.Row>
-          {props.newTeam.map((player) => (
-            <Grid.Column width={3}>
+        {/* <Grid.Row>
+          {props.currentTeam.map((player) => (
+            <Grid.Column key = {player.PlayerID} width={3}>
               <Segment>
                 <Label
                   attached="top right"
@@ -40,7 +41,7 @@ export default (props) => {
               </Segment>
             </Grid.Column>
           ))}
-        </Grid.Row>
+        </Grid.Row> */}
       </Grid>
     </Container>
   );

@@ -23,7 +23,7 @@ class AllTeams extends Component {
   renderLoadBox = () => {
     return (
       this.props.teams.map((currentTeam) => (
-     <Container style={{ border: "solid", margin: "auto" }}>
+     <Container key = {currentTeam._id} style={{ border: "solid", margin: "auto" }}>
         <Segment clearing>
           {/* <Button onClick={() => this.onSubmit()}>Make Team</Button> */}
           <Header as="h1" >
@@ -37,8 +37,8 @@ class AllTeams extends Component {
         </Segment>
         <Grid centered divided="vertically">
           <Grid.Row>
-            {currentTeam.team.map((player) => (
-              <Grid.Column width={3}>
+            {currentTeam.team.map((player, i) => (
+              <Grid.Column key={i} width={3}>
                 <Card>
                   <Image
                     size="tiny"

@@ -38,7 +38,7 @@ export default (props) => (
           start = {props.start}
           end = {props.end}
           addPlayer = {props.addPlayer}
-          newTeam = {props.newTeam}
+          currentTeam = {props.currentTeam}
           />  
         </Table.Body>
 

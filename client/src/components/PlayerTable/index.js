@@ -8,13 +8,13 @@ import {
 
 export default (props) => {
   if (props.playerStats.length === 0) {
-    return <Header content="No players yet" />;
+    return <Header key={1} content="No players yet" />;
   } else {
     return props.playerStats
       .slice(props.start, props.end)
-      .map(({ PlayerID, Name, Position, PhotoUrl, fantasyPoints, Games }) => {
+      .map(({ PlayerID, Name, Position, PhotoUrl, fantasyPoints, Games, i }) => {
         return (
-          <Table.Row key={PlayerID}>
+          <Table.Row key={i}>
             <Table.Cell>
               <Image
                 size="tiny"
@@ -40,7 +40,7 @@ export default (props) => {
                     fantasyPoints,
                   })
                 }
-                disabled={props.newTeam.length > 9}
+                disabled={props.currentTeam.length > 9}
                 color="blue"
                 content="Add player to team"
                 size="mini"
