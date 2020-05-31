@@ -1,17 +1,15 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-// import counterReducer from './counterReducer';
-import createReducer from './createReducer';
+import playerReducer from './playerReducer';
+import teamReducer from './teamReducer';
 import authReducer from './authReducer';
-
-// import { ADD_USER_TODO } from '../actions/types';
 
 export default combineReducers({
   auth: authReducer,
-  playerStats: createReducer,
-  teams: createReducer,
-  currentTeam: createReducer,
+  playerStats: playerReducer,
+  teams: teamReducer,
+  currentTeam: teamReducer,
   form: formReducer,
   // form: formReducer.plugin({
   //   addTodo: (state, action) => {
