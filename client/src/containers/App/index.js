@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Grid } from 'semantic-ui-react'
-
 
 import "./style.css";
-
-// import Counter from './../Counter';
-
-// import AllTodosList from '../AllTodosList';
-// import UserTodoList from '../UserTodoList';
 
 import SignUp from '../SignUp';
 import SignIn from '../SignIn';

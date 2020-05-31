@@ -1,14 +1,8 @@
 import {
 	GET_ALL_PLAYER_STATS, 
 	GET_ALL_PLAYER_STATS_ERROR, 
-	GET_ALL_TEAMS, 
-	GET_ALL_TEAMS_ERROR, 
-	DELETE_TEAM_BY_ID_ERROR
 } from "../types";
 import axios from 'axios';
-import _ from "lodash";
-
-// import playerStats from '../../Data/Player/playerStats.json'
 
 export const getAllPlayerStats = () => async dispatch => {
 	try {
@@ -19,41 +13,9 @@ export const getAllPlayerStats = () => async dispatch => {
 	}
 }
 
-export const getAllTeams = () => async dispatch => {
-	try {
-		const { data } = await axios.get('/api/team/');
-		dispatch({type: GET_ALL_TEAMS,payload: data});
-	} catch (e) {
-		dispatch({type: GET_ALL_TEAMS_ERROR,	payload: e });
-	}
-}
+ export const filterDataByName = (searchQuery) => async dispatch => {
+	console.log(searchQuery)
 
-export const onSubmit = (currentTeam) => async (dispatch) => {
-	const data = currentTeam;
-	try {
-		const { newTeam } = await axios.post("/api/team/", data);
-		console.log(newTeam)
-
-		// localStorage.setItem('token', data.token);
-		dispatch({ type: GET_ALL_TEAMS, payload: this.props.teams});
-		
-	} catch (e) {
-		console.log(e);
-	}
-};
-
-
-export const deleteTeam = id => async dispatch => {
-	try {
-		await axios.delete(`/api/team/${id}`);
-		const { data } = await axios.get('/api/team/');
-		dispatch({type: GET_ALL_TEAMS,payload: data});
-	} catch (e) {
-		dispatch({ type: DELETE_TEAM_BY_ID_ERROR, payload: e });
-	}
-}
- export const filterData = (searchQuery) => async dispatch => {
-	 console.log(searchQuery)
 	 try {
 		let regex = new RegExp(searchQuery.toLowerCase());
 		const { data } = await axios.get('/api/player/test');
@@ -64,6 +26,19 @@ export const deleteTeam = id => async dispatch => {
 	} catch (e) {
 		dispatch({type: GET_ALL_PLAYER_STATS_ERROR,	payload: e });
 	}
+}
+
+export const filterDataByPosition = (searchQuery) => async dispatch => {
+  try {
+   let regex = new RegExp(searchQuery.toLowerCase());
+   const { data } = await axios.get('/api/player/test');
+   let filteredData =  data.filter(function(player) {
+     return !player.Position.toLowerCase().search(regex);
+   });
+   dispatch({type: GET_ALL_PLAYER_STATS, payload: filteredData, direction: 'asc'});
+ } catch (e) {
+   dispatch({type: GET_ALL_PLAYER_STATS_ERROR,	payload: e });
+ }
 }
 	
 	export const sortPlayers = (direction, column) => async dispatch => {
