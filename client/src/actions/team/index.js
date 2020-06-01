@@ -6,6 +6,7 @@ import {
 	ADD_PLAYER_TO_TEAM_ERROR,
 	GET_USER_TEAMS,
 	GET_USER_TEAMS_ERROR,
+	RESET_TEAM
 } from "../types";
 import axios from 'axios';
 import _ from "lodash";
@@ -24,7 +25,7 @@ export const getCurrentTeam = () => async (dispatch, getState) => {
 		try{
 			dispatch({type: ADD_PLAYER_TO_TEAM,	payload: currentTeam.currentTeam });
 	} catch (e) {
-		dispatch({type: ADD_PLAYER_TO_TEAM_ERROR,	payload: e });
+			dispatch({type: ADD_PLAYER_TO_TEAM_ERROR,	payload: e });
 	}
 }
 
@@ -34,14 +35,11 @@ export const addTeam = (callback) => async (dispatch, getState) => {
 	const team = currentTeam.currentTeam;
 	const fantasyPoints = _.sumBy(team, "fantasyPoints");
 	try {
-		console.log("Front ")
-		const data = await axios.post("/api/team/", { team, fantasyPoints}, { headers: {'authorization': localStorage.getItem('token')}});
-		console.log(teams)
-		// localStorage.setItem('token', data.token);
+		const {data} = await axios.post("/api/team/", { team, fantasyPoints}, { headers: {'authorization': localStorage.getItem('token')}});
 		dispatch({ type: GET_ALL_TEAMS, payload: [...teams.teams, data]});
-		console.log("HIT")
+		dispatch({ type: RESET_TEAM, payload: []});
+		console.log(getState())
 		callback();
-
 	} catch (e) {
 		console.log(e)
 		dispatch({type: ADD_PLAYER_TO_TEAM_ERROR,	payload: e });

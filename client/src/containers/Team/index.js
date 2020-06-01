@@ -31,6 +31,7 @@ class AllTeams extends Component {
         <Segment clearing>
           {/* <Button onClick={() => this.onSubmit()}>Make Team</Button> */}
           <Header as="h1" >
+            {console.log(currentTeam)}
             Total Fantasy Points: {_.sumBy(currentTeam.team, "fantasyPoints")}
           </Header>
           <Label
@@ -41,9 +42,11 @@ class AllTeams extends Component {
         </Segment>
         <Grid centered divided="vertically">
           <Grid.Row>
+          {console.log(currentTeam)}
             {currentTeam.team.map((player, i) => (
               <Grid.Column key={i} width={3}>
                 <Card>
+                 
                   <Image
                     size="tiny"
                     style={{ margin: "10px auto -20px auto" }}
