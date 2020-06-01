@@ -89,6 +89,7 @@ class AllPlayers extends Component {
   };
 
   onChangePosition = (e, { value }) => {
+    console.log({ value })
     this.setState({ value });
     this.props.filterDataByPosition(value);
     // dispatch({type: GET_ALL_PLAYER_STATS,payload: sortedData, direction});
@@ -110,8 +111,6 @@ class AllPlayers extends Component {
       { text: "SF", value: "SF" },
     ];
     // let {currentTeam} = this.props.currentTeam;
-
-    console.log(this.props.currentTeam)
     return (
       <Container>
         <CreateTeamBox

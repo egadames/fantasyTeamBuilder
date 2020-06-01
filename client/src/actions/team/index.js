@@ -47,7 +47,7 @@ export const addTeam = () => async (dispatch, getState) => {
 	try {
 		console.log("Front HIT")
 
-		const data = await axios.post("/api/team/", { team: team}, {fantasyPoints: fantasyPoints},  {headers: {'authorization': localStorage.getItem('token')}});
+		const data = await axios.post("/api/team/", { team: team}, {fantasyPoints: fantasyPoints});
 		console.log(data)
 		// localStorage.setItem('token', data.token);
 		// dispatch({ type: GET_ALL_TEAMS, payload: data}, {type: ADD_PLAYER_TO_TEAM, payload: [] });
