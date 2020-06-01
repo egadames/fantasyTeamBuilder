@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import { connect } from "react-redux";
-import _ from "lodash";
-import { getAllTeams, addTeam, addPlayer, getCurrentTeam } from "../../actions/team";
+import { getAllTeams, addTeam, addPlayer, getCurrentTeam, deletePlayer } from "../../actions/team";
 import {
   getAllPlayerStats,
   sortPlayers,
   filterDataByName,
   filterDataByPosition,
 } from "../../actions/player";
-import axios from "axios";
 import { 
   GET_ALL_TEAMS, 
   ADD_PLAYER_TO_TEAM
@@ -26,7 +24,7 @@ class AllPlayers extends Component {
     newTeam: [],
     activePage: 1,
     start: 0,
-    end: 10,
+    end: 5,
     value: "",
   };
 
@@ -34,7 +32,6 @@ class AllPlayers extends Component {
     await this.props.getAllPlayerStats();
     await this.props.getAllTeams();
     await this.props.getCurrentTeam();
-    // this.setState({ newTeam: [...this.state.newTeam, this.props.currentTeam] });
   }
 
   handlePageChange = (event, data) => {
@@ -45,54 +42,27 @@ class AllPlayers extends Component {
     });
   };
 
-
-  // onSubmit = async (dispatch) => {
-  //   const team = this.state.newTeam;
-  //   const points = _.sumBy(team, "fantasyPoints");
-  //   try {
-  //     const { data } = await axios.post("/api/team/", { team, points });
-  //     localStorage.setItem('token', data.token);
-  //     dispatch({ type: GET_ALL_TEAMS, payload: data}, {type: ADD_PLAYER_TO_TEAM, payload: []} );
-  //     dispatch({type: ADD_PLAYER_TO_TEAM, payload: []} );
-  //     this.props.history.push("/");
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  handleDelete = async (id) => {
-    const data = this.state.newTeam;
+  handleDelete = async (id)  => (dispatch) => {
+    const data = this.props.currentTeam;
     let filteredList = data.filter(function (player) {
       return player.PlayerID !== id;
     });
     try {
-      this.setState({ newTeam: filteredList });
+      dispatch({type: ADD_PLAYER_TO_TEAM, payload: filteredList} );
     } catch (e) {
       console.log(e);
     }
   };
 
-  // addPlayer = (player, dispatch) => {
-  //   console.log(dispatch)
-  //   const data = JSON.stringify(this.state.newTeam);
-  //   if (!data.includes(player.Name)) {
-  //     this.setState({ newTeam: [...this.state.newTeam, player] });
-  //     dispatch({type: ADD_PLAYER_TO_TEAM,	payload: player });
-  //   }
-  //   return;
-  // };
-
   onChange = (e, { searchQuery, value }) => {
     this.setState({ searchQuery, value });
     this.props.filterDataByName(value);
-    // dispatch({type: GET_ALL_PLAYER_STATS,payload: sortedData, direction});
   };
 
   onChangePosition = (e, { value }) => {
     console.log({ value })
     this.setState({ value });
     this.props.filterDataByPosition(value);
-    // dispatch({type: GET_ALL_PLAYER_STATS,payload: sortedData, direction});
   };
 
   handleSearchChange = (e, { searchQuery }) => this.setState({ searchQuery });
@@ -110,13 +80,12 @@ class AllPlayers extends Component {
       { text: "PF", value: "PF" },
       { text: "SF", value: "SF" },
     ];
-    // let {currentTeam} = this.props.currentTeam;
     return (
       <Container>
         <CreateTeamBox
           currentTeam = {this.props.currentTeam}
           onSubmit = {this.props.addTeam}
-          handleDelete = {this.handleDelete}
+          handleDelete = {this.props.deletePlayer}
         />
         <FullTable
           sortPlayers={this.props.sortPlayers}
@@ -157,4 +126,5 @@ export default requireAuth(connect(mapStateToProps, {
   addTeam,
   addPlayer,
   getCurrentTeam,
+  deletePlayer,
 })(AllPlayers));
