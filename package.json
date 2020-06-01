@@ -41,7 +41,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-     "react-slick": "^0.26.1",
+    "react-slick": "^0.26.1",
     "semantic-ui-carousel-react": "^1.1.1",
     "slick-carousel": "^1.8.1",
     "react-swipeable-views": "^0.13.9",

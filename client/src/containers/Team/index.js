@@ -64,7 +64,6 @@ class AllTeams extends Component {
       <Container fluid style={{height: '86vh', margin: "auto"}}>
         <Carousel>
         {this.renderLoadBox()}
-
         </Carousel>
       </Container>
     );

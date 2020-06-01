@@ -42,9 +42,11 @@ export const filterDataByName = (searchQuery) => async dispatch => {
 // };
 
 export const filterDataByPosition = (searchQuery) => async dispatch => {
+	console.log('imhut')
   try {
    let regex = new RegExp(searchQuery.toLowerCase());
-   const { data } = await axios.get('/api/player');
+	 const { data } = await axios.get('/api/player', { headers: {'authorization': localStorage.getItem('token')}});
+	 
    let filteredData =  data.filter(function(player) {
      return !player.Position.toLowerCase().search(regex);
    });
@@ -56,9 +58,6 @@ export const filterDataByPosition = (searchQuery) => async dispatch => {
 	
 	export const sortPlayers = (direction, column) => async (dispatch, getState) => {
 		const {playerStats} = getState();
-		// console.log(getState())
-		const {currentTeam} = getState();
-		console.log(currentTeam)
 		try {
 			const data = playerStats.playerStats;
 			let sortedData;

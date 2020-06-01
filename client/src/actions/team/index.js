@@ -9,7 +9,6 @@ import {
 } from "../types";
 import axios from 'axios';
 import _ from "lodash";
-import { pl } from "date-fns/locale";
 
 export const getAllTeams = () => async dispatch => {
 	try {
@@ -22,7 +21,6 @@ export const getAllTeams = () => async dispatch => {
 
 export const getCurrentTeam = () => async (dispatch, getState) => {
 		const {currentTeam} = getState();
-		console.log(currentTeam.currentTeam)
 		try{
 			dispatch({type: ADD_PLAYER_TO_TEAM,	payload: currentTeam.currentTeam });
 	} catch (e) {
@@ -31,29 +29,17 @@ export const getCurrentTeam = () => async (dispatch, getState) => {
 }
 
 export const addTeam = () => async (dispatch, getState) => {
-	console.log(getState())
-	console.log("Front HIT")
-
-	// const {playerStats} = getState();
 	const {currentTeam} = getState();
-
-	// const team = currentTeam.currentTeam;
-	const team = [1,2,3];
+	const team = currentTeam.currentTeam;
 	const fantasyPoints = _.sumBy(team, "fantasyPoints");
-	console.log(fantasyPoints)
-	console.log(team)
-	console.log({'authorization': localStorage.getItem('token')})
-
 	try {
-		console.log("Front HIT")
-
-		const data = await axios.post("/api/team/", { team: team}, {fantasyPoints: fantasyPoints},  {headers: {'authorization': localStorage.getItem('token')}});
-		console.log(data)
-		// localStorage.setItem('token', data.token);
-		// dispatch({ type: GET_ALL_TEAMS, payload: data}, {type: ADD_PLAYER_TO_TEAM, payload: [] });
-		console.log("Front HIT")
-
-		this.props.history.push("/");
+		console.log("Front ")
+		const data = await axios.post("/api/team/", { team, fantasyPoints}, { headers: {'authorization': localStorage.getItem('token')}});
+		console.log(data.data)
+		localStorage.setItem('token', data.token);
+		dispatch({ type: GET_ALL_TEAMS, payload: data.data}, {type: ADD_PLAYER_TO_TEAM, payload: [] });
+		console.log("HIT")
+		// this.props.history.push("/");
 	} catch (e) {
 		console.log(e)
 		dispatch({type: ADD_PLAYER_TO_TEAM_ERROR,	payload: e });
@@ -62,13 +48,8 @@ export const addTeam = () => async (dispatch, getState) => {
 
 export const addPlayer = (player) => (dispatch, getState) => {
 	const {currentTeam} = getState();
-
 	const data = JSON.stringify(currentTeam);
-	// console.log()
-	console.log(currentTeam)
 	if (!data.includes(player.Name)) {
-		console.log(currentTeam)
-
 		dispatch({type: ADD_PLAYER_TO_TEAM,	payload: [...currentTeam.currentTeam, player]});
 	}
 	return;
@@ -87,8 +68,6 @@ export const getUserTeams = () => async dispatch => {
 export const deleteTeam = id => async dispatch => {
 	try {
 		await axios.delete(`/api/team/${id}`, { headers: { 'authorization': localStorage.getItem('token') }});
-		console.log('im hit')
-
 		const { data } = await axios.get('/api/team/', { headers: {'authorization': localStorage.getItem('token')}});
 		console.log(data)
 		dispatch({type: GET_ALL_TEAMS,payload: data});
