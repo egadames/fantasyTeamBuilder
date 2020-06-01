@@ -1,7 +1,7 @@
 import { 
 	ADD_PLAYER_TO_TEAM,
 	ADD_PLAYER_TO_TEAM_ERROR,
-	GET_ALL_TEAMS,
+	RESET_TEAM,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -13,8 +13,8 @@ export default function (state = INITIAL_STATE, action) {
 			return {...state, currentTeam: action.payload, ADD_PLAYER_TO_TEAM_ERROR: ''};
 		case ADD_PLAYER_TO_TEAM_ERROR:
 			return {...state, ADD_PLAYER_TO_TEAM_ERROR: action.payload };
-		case GET_ALL_TEAMS:
-			return {currentTeam: []};
+		case RESET_TEAM:
+			return {currentTeam: action.payload};
 		default:
 			return state;
 	}

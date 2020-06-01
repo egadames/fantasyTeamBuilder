@@ -18,6 +18,8 @@ export const GET_USER_TEAMS_ERROR = 'GET_USER_TEAMS_ERRORS';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_USER_ERROR = 'AUTH_USER_ERROR';
 
+export const RESET_TEAM = 'RESET_TEAM';
+
 // TO DELETE EVENTUALLY
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';

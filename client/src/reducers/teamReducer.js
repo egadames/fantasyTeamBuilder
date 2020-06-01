@@ -17,7 +17,6 @@ export default function (state = INITIAL_STATE, action) {
 			return {...state, GET_ALL_TEAMS_ERROR: action.payload };
 		case DELETE_TEAM_BY_ID_ERROR:
 				return {...state, DELETE_TEAM_BY_ID_ERROR: action.payload };
-
 		default:
 			return state;
 	}
