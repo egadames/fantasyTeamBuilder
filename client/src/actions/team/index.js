@@ -28,18 +28,20 @@ export const getCurrentTeam = () => async (dispatch, getState) => {
 	}
 }
 
-export const addTeam = () => async (dispatch, getState) => {
+export const addTeam = (callback) => async (dispatch, getState) => {
 	const {currentTeam} = getState();
+	const {teams} = getState();
 	const team = currentTeam.currentTeam;
 	const fantasyPoints = _.sumBy(team, "fantasyPoints");
 	try {
 		console.log("Front ")
 		const data = await axios.post("/api/team/", { team, fantasyPoints}, { headers: {'authorization': localStorage.getItem('token')}});
-		console.log(data.data)
-		localStorage.setItem('token', data.token);
-		dispatch({ type: GET_ALL_TEAMS, payload: data.data}, {type: ADD_PLAYER_TO_TEAM, payload: [] });
+		console.log(teams)
+		// localStorage.setItem('token', data.token);
+		dispatch({ type: GET_ALL_TEAMS, payload: [...teams.teams, data]});
 		console.log("HIT")
-		// this.props.history.push("/");
+		callback();
+
 	} catch (e) {
 		console.log(e)
 		dispatch({type: ADD_PLAYER_TO_TEAM_ERROR,	payload: e });
@@ -53,6 +55,22 @@ export const addPlayer = (player) => (dispatch, getState) => {
 		dispatch({type: ADD_PLAYER_TO_TEAM,	payload: [...currentTeam.currentTeam, player]});
 	}
 	return;
+};
+
+
+export const deletePlayer = (id)  => async (dispatch, getState)  => {
+	console.log("IM")
+	const {currentTeam} = getState();
+	const data = currentTeam.currentTeam;
+	console.log(data)
+	let filteredList = data.filter(function (player) {
+		return player.PlayerID !== id;
+	});
+	try {
+		dispatch({type: ADD_PLAYER_TO_TEAM, payload: filteredList} );
+	} catch (e) {
+		console.log(e);
+	}
 };
 
 export const getUserTeams = () => async dispatch => {

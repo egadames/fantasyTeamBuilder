@@ -44,7 +44,7 @@ export default (props) => (
 
       </Table>
       <Pagination
-        totalPages={Math.ceil(props.playerStats.length / 10)}
+        totalPages={Math.ceil(props.playerStats.length / 5)}
         activePage={props.activePage}
         onPageChange={(e, data) => props.handlePageChange(e, data)}
       />

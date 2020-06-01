@@ -8,7 +8,14 @@ import {
 
 export default (props) => {
   if (props.playerStats.length === 0) {
-    return <Header key={1} content="No players yet" />;
+    return (
+      <Table.Row key={'i'}>
+      <Table.Cell>
+        <Header content="No players yet" />
+      </Table.Cell>
+      </Table.Row>
+
+    )
   } else {
     return props.playerStats
       .slice(props.start, props.end)
