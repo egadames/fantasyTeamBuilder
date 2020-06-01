@@ -58,9 +58,6 @@ export const filterDataByPosition = (searchQuery) => async dispatch => {
 	
 	export const sortPlayers = (direction, column) => async (dispatch, getState) => {
 		const {playerStats} = getState();
-		// console.log(getState())
-		const {currentTeam} = getState();
-		console.log(currentTeam)
 		try {
 			const data = playerStats.playerStats;
 			let sortedData;

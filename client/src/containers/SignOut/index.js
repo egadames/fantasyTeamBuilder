@@ -7,18 +7,15 @@ import { signOut } from '../../actions/auth';
 
 class SignOut extends Component {
 
-
   componentDidMount() {
-    console.log("Did mount");
     this.props.signOut();
   }
 
   render() {
-    console.log("render");
     return (
       <Container>
         <Message error header="We're sorry to see you go :("/>
-        <Button as={Link} to='/signup' content='Go back to sign up'/>
+        <Button as={Link} to='/signin' content='Go back to sign in page'/>
       </Container>
     );
   }
