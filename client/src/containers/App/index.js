@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import "./style.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import SignUp from '../SignUp';
 import SignIn from '../SignIn';
@@ -10,6 +12,7 @@ import SignOut from '../SignOut';
 
 import Navbar from './../../components/Navbar';
 import Homepage from  "../../components/Homepage";
+import Carousel from "../../components/Carousel";
 import Footer from"../../components/Footer";
 import newTeam from '../newTeam';
 import Teams from '../Team'
