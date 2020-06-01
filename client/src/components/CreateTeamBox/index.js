@@ -13,17 +13,22 @@ import _ from "lodash";
 
 export default (props) => {
   const fantasyPoints = _.sumBy(props.currentTeam, "fantasyPoints");
-  console.log()
+  console.log(props.currentTeam)
+  // if (props.currentTeam === undefined) {
+  //   props.currentTeam = [{}]
+  //   // Now we know that foo is defined, we are good to go.
+  // }
   return (
     <Container style={{ border: "solid", margin: "auto", height: "71vh" }}>
       <Segment clearing>
-        <Button onClick={() => props.onSubmit()}>Make Team</Button>
+        <Button 
+        onClick={() => props.onSubmit()}>Make Team</Button>
         <Header as="h1" floated="right">
           Total Fantasy Points: {fantasyPoints}
         </Header>
       </Segment>
       <Grid centered divided="vertically">
-        {/* <Grid.Row>
+        <Grid.Row>
           {props.currentTeam.map((player) => (
             <Grid.Column key = {player.PlayerID} width={3}>
               <Segment>
@@ -41,7 +46,7 @@ export default (props) => {
               </Segment>
             </Grid.Column>
           ))}
-        </Grid.Row> */}
+        </Grid.Row>
       </Grid>
     </Container>
   );

@@ -33,15 +33,19 @@
     "if-env": "^1.0.4",
     "jwt-simple": "^0.5.6",
     "lodash": "^4.17.15",
+    "material-auto-rotating-carousel": "^3.0.2",
     "material-table": "^1.58.2",
     "moment": "^2.25.1",
     "mongoose": "^5.9.10",
+    "nuka-carousel": "^4.7.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "react-slick": "^0.26.1",
+     "react-slick": "^0.26.1",
     "semantic-ui-carousel-react": "^1.1.1",
     "slick-carousel": "^1.8.1",
+    "react-swipeable-views": "^0.13.9",
+    "simple-react-validator": "^1.4.6",
     "validator": "^13.0.0"
   }
 }

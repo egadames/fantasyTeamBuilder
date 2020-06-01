@@ -30,10 +30,11 @@ class AllPlayers extends Component {
     value: "",
   };
 
-  componentDidMount() {
-    this.props.getAllPlayerStats();
-    this.props.getAllTeams();
-    this.props.getCurrentTeam();
+  async componentDidMount() {
+    await this.props.getAllPlayerStats();
+    await this.props.getAllTeams();
+    await this.props.getCurrentTeam();
+    // this.setState({ newTeam: [...this.state.newTeam, this.props.currentTeam] });
   }
 
   handlePageChange = (event, data) => {
@@ -45,20 +46,19 @@ class AllPlayers extends Component {
   };
 
 
-  onSubmit = async (dispatch) => {
-    const team = this.state.newTeam;
-    console.log('im hit bitch')
-    const points = _.sumBy(team, "fantasyPoints");
-    try {
-      const { data } = await axios.post("/api/team/", { team, points });
-      localStorage.setItem('token', data.token);
-      dispatch({ type: GET_ALL_TEAMS, payload: data}, {type: ADD_PLAYER_TO_TEAM, payload: []} );
-      dispatch({type: ADD_PLAYER_TO_TEAM, payload: []} );
-      this.props.history.push("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // onSubmit = async (dispatch) => {
+  //   const team = this.state.newTeam;
+  //   const points = _.sumBy(team, "fantasyPoints");
+  //   try {
+  //     const { data } = await axios.post("/api/team/", { team, points });
+  //     localStorage.setItem('token', data.token);
+  //     dispatch({ type: GET_ALL_TEAMS, payload: data}, {type: ADD_PLAYER_TO_TEAM, payload: []} );
+  //     dispatch({type: ADD_PLAYER_TO_TEAM, payload: []} );
+  //     this.props.history.push("/");
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   handleDelete = async (id) => {
     const data = this.state.newTeam;
@@ -109,11 +109,9 @@ class AllPlayers extends Component {
       { text: "PF", value: "PF" },
       { text: "SF", value: "SF" },
     ];
-    const {currentTeam} = this.props.currentTeam;
-    // test = this.props.currentTeam.currentTeam.map((player) => {
-    //   return console.log('MAP IS WORKING WTF')
-    // })
-    console.log(currentTeam)
+    // let {currentTeam} = this.props.currentTeam;
+
+    console.log(this.props.currentTeam)
     return (
       <Container>
         <CreateTeamBox
