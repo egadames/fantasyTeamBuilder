@@ -30,8 +30,7 @@ class AllTeams extends Component {
      <Container key = {team._id} style={{ border: "solid", margin: "auto",  }}>
         <Segment inverted clearing>
           <Header as="h1" >
-            {/* {console.log(this.props.userTeams)} */}
-            {console.log(team._id)}
+
             Total Fantasy Points: {_.sumBy(team.team, "fantasyPoints")}
           </Header>
           <Label
