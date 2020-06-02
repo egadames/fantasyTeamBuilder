@@ -28,7 +28,7 @@ class AllTeams extends Component {
     return (
       this.props.teams.map((team) => (
      <Container key = {team._id} style={{ border: "solid", margin: "auto",  }}>
-        <Segment clearing>
+        <Segment inverted clearing>
           <Header as="h1" >
             Total Fantasy Points: {_.sumBy(team.team, "fantasyPoints")}
           </Header>
@@ -42,7 +42,7 @@ class AllTeams extends Component {
           <Grid.Row>
           {Array.isArray(team) ?(team.map((player, i) => (
               <Grid.Column key={i} width={3}>
-                <Card>
+                <Card inverted>
                   <Image
                     size="tiny"
                     style={{ margin: "10px auto -20px auto" }}

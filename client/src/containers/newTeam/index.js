@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import "./style.css";
 
 import { connect } from "react-redux";
