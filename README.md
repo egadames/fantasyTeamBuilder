@@ -57,7 +57,7 @@ What were your successes?
   * There is a delete icon that once clicked will delete the team from the user's team.
 
 ### Screenshot
-![1](https://github.com/egadames/project03/blob/master/asset/img/screentshot1.JPG)
-![2](https://github.com/egadames/project03/blob/master/asset/img/screentshot2.JPG)
-![3](https://github.com/egadames/project03/blob/master/asset/img/screentshot3.JPG)
-![4](https://github.com/egadames/project03/blob/master/asset/img/screentshot4.JPG)
+![screenshot1](https://github.com/egadames/project03/blob/master/assets/img/screenshot1.JPG)
+![screenshot2](https://github.com/egadames/project03/blob/master/asset/img/screentshot2.JPG)
+![screenshot3](https://github.com/egadames/project03/blob/master/asset/img/screentshot3.JPG)
+![screenshot4](https://github.com/egadames/project03/blob/master/asset/img/screentshot4.JPG)
