@@ -2,8 +2,6 @@ import {
 	GET_ALL_TEAMS, 
 	GET_ALL_TEAMS_ERROR, 
 	DELETE_TEAM_BY_ID_ERROR,
-	ADD_PLAYER_TO_TEAM,
-	// ADD_PLAYER_TO_TEAM_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {

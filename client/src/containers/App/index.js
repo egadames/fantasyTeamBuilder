@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container } from "semantic-ui-react";
 
 import "./style.css";
 import "slick-carousel/slick/slick.css";
@@ -13,8 +12,8 @@ import SignOut from '../SignOut';
 
 import Navbar from './../../components/Navbar';
 import Homepage from  "../../components/Homepage";
-import Carousel from "../../components/Carousel";
-import Footer from"../../components/Footer";
+// import Carousel from "../../components/Carousel";
+// import Footer from"../../components/Footer";
 import newTeam from '../newTeam';
 import Teams from '../Team'
 // import NewTeamForm from '../../Data/Team/NewTeamForm';
@@ -24,7 +23,7 @@ import Teams from '../Team'
 class App extends Component {
   render() {
     return (
-      <div className = 'background' style={{maxHeight: '100%', maxWidth: '100%'}}>
+      <div className = 'background' >
           <Navbar authenticated={this.props.authenticated} />
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/signup' component={SignUp}/>
@@ -37,12 +36,6 @@ class App extends Component {
     )
   }
 }
-
-      // <div>
-      //   <Navbar />
-      //   <Homepage />
-      //   <Footer />
-      // </div>
 
 function mapStateToProps(state) {
   return { authenticated: state.auth.authenticated };

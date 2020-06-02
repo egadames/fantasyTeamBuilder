@@ -3,7 +3,6 @@ import {
   Table,
   Grid,
   Pagination,
-  Container,
 } from "semantic-ui-react";
 import TableHeaders from "../../components/TableHeaders";
 import PlayerTable from '../../components/PlayerTable'
@@ -22,7 +21,7 @@ export default (props) => (
         unstackable
         collapsing
         celled
-        // inverted
+        inverted
         color={"black"}
         // padded
         columns={4}

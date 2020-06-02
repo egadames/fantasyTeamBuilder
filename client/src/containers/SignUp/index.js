@@ -1,91 +1,103 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Form, Segment, Button } from 'semantic-ui-react';
-import { email, length, required } from 'redux-form-validators';
-import axios from 'axios';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { Form, Segment, Button, Grid, Image } from "semantic-ui-react";
+import { email, length, required } from "redux-form-validators";
+import axios from "axios";
 
-import { AUTH_USER, AUTH_USER_ERROR } from '../../actions/types';
+import { AUTH_USER, AUTH_USER_ERROR } from "../../actions/types";
 
 class SignUp extends Component {
   onSubmit = async (formValues, dispatch) => {
     console.log("test");
     try {
-      const { data } = await axios.post('/api/auth/signup', formValues);
-      localStorage.setItem('token', data.token);
+      const { data } = await axios.post("/api/auth/signup", formValues);
+      localStorage.setItem("token", data.token);
       dispatch({ type: AUTH_USER, payload: data.token });
-      this.props.history.push('/');
+      this.props.history.push("/");
     } catch (e) {
       dispatch({ type: AUTH_USER_ERROR, payload: e });
     }
-  }
+  };
 
   renderEmail = ({ input, meta }) => {
     return (
       <Form.Input
         {...input}
         fluid
-        error={ meta.touched && meta.error }
-        icon='user'
-        iconPosition='left'
-        autoComplete='off'
-        placeholder='Email address'
+        error={meta.touched && meta.error}
+        icon="user"
+        iconPosition="left"
+        autoComplete="off"
+        placeholder="Email address"
       />
-    )
-  }
+    );
+  };
 
   renderPassword = ({ input, meta }) => {
     return (
       <Form.Input
         {...input}
-        type='password'
+        type="password"
         fluid
-        error={ meta.touched && meta.error }
-        icon='lock'
-        iconPosition='left'
-        autoComplete='off'
-        placeholder='password'
+        error={meta.touched && meta.error}
+        icon="lock"
+        iconPosition="left"
+        autoComplete="off"
+        placeholder="password"
       />
-    )
-  }
+    );
+  };
 
   render() {
     const { handleSubmit, invalid, submitting, submitFailed } = this.props;
     return (
-      <Form size='large' onSubmit={handleSubmit(this.onSubmit)}>
-        <Segment stacked>
-          <Field
-            name='email'
-            validate={
-              [
-                required({ msg: 'Email is required' }),
-                email({ msg: 'You must provide a valid email address' })
-              ]
-            }
-            component={this.renderEmail}
-          />
-          <Field
-            name='password'
-            validate={
-              [
-                required({ msg: 'You must provide a password' }),
-                length({ minimum: 6, msg: 'Your password must be at least 6 characters long' })
-              ]
-            }
-            component={this.renderPassword}
-          />
-          <Button
-            content='Sign Up'
-            color='teal'
-            fluid
-            size='large'
-            type='submit'
-            disabled={ invalid || submitting || submitFailed }
-          />
-        </Segment>
-      </Form>
+      <div>
+        <Grid verticalAlign="middle">
+          <Grid.Row>
+            <Grid.Column floated="left" fluid width={8}>
+              <div styles={{ maxWidth: 1400, maxHeight: 1000 }}>
+                <Image src="https://source.unsplash.com/1600x1400/?basketball?nba" />
+              </div>
+            </Grid.Column>
+            <Grid.Column floated="right" width={6}>
+              <Form size="large" onSubmit={handleSubmit(this.onSubmit)}>
+                <Segment inverted stacked>
+                  <Field
+                    name="email"
+                    validate={[
+                      required({ msg: "Email is required" }),
+                      email({ msg: "You must provide a valid email address" }),
+                    ]}
+                    component={this.renderEmail}
+                  />
+                  <Field
+                    name="password"
+                    validate={[
+                      required({ msg: "You must provide a password" }),
+                      length({
+                        minimum: 6,
+                        msg: "Your password must be at least 6 characters long",
+                      }),
+                    ]}
+                    component={this.renderPassword}
+                  />
+                  <Button
+                    content="Sign Up"
+                    color="blue"
+                    fluid
+                    size="large"
+                    type="submit"
+                    disabled={invalid || submitting || submitFailed}
+                  />
+                </Segment>
+              </Form>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
     );
   }
-};
+}
 
 const asyncValidate = async ({ email }) => {
   try {
@@ -94,12 +106,12 @@ const asyncValidate = async ({ email }) => {
       throw new Error();
     }
   } catch (e) {
-    throw { email: 'Email is already taken' };
+    throw { email: "Email is already taken" };
   }
 };
 
 export default reduxForm({
-  form: 'SignUp',
+  form: "SignUp",
   asyncValidate,
-  asyncChangeFields: ['email']
+  asyncChangeFields: ["email"],
 })(SignUp);
