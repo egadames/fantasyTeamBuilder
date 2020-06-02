@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Team: 
+Sin Cho Chan, Erik Adames, David Hughey and Adeola Afariogun
+### Location of URLs
+This is the link to the github repo:
+https://github.com/egadames/project03
+This is the link to the live website:
+https://thawing-sierra-93407.herokuapp.com/
+### Website Concept: 
+Our website is a NBA fantasy team Manager!
+The app is way to get current stats on active NBA players, edit, delete and review flashcards for studying.
+### Process:  
+What challenges did you encounter?
+  * The challenges arose from the modulization of various components and containers. As redux allows the state to be updated continously. The challenges were getting the proper name identification for each state. As sometimes they would return an array and sometimes an object. 
+What were your successes?
+  * With the power of redux we were able to naviagte the state smoothly and even without hitting the backend for data.
+### What were the technologies used? 
+  * MongoDb
+  * Heroku for the domain
+  * Mlab MySql
+  * HTML
+  * JavaScript
+  * React
+  * Semantic UI CSS
+  * Redux
+### Home Page
+  * This will load a starting page that contains a navbar and a desciption of the features of the app 
+  * The nav bar contains 2 different layouts depending if the user is logged in or not.
+  * If the user is not logged in they only have access to the homepage, sign up and sign in page.
+  * If the user is logged in they have access to the view user team page and create team page.
+### Add a Player to Your Current Team Feature
+  * This page allows users to view all active players in the NBA in a table format. 
+  * This page also contains a team loading box that will hold the users player selection. 
+  * The table contains 4 columns which are Name, Position, Fantasy Points and Add Player to team.
+  * The Name and Position columns are sortable and searchable so a user can filter the data. Fantasy points is also sortable and can be combined with position to obtain the most fantasy points by position.
+  * 
+### Screenshot
+egadames/project03
+Language
+JavaScript
