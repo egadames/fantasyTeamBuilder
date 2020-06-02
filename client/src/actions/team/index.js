@@ -37,7 +37,7 @@ export const addTeam = (callback) => async (dispatch, getState) => {
 	try {
 		const {data} = await axios.post("/api/team/", { team, fantasyPoints}, { headers: {'authorization': localStorage.getItem('token')}});
 		dispatch({ type: GET_ALL_TEAMS, payload: [...teams.teams, data]});
-		dispatch({ type: RESET_TEAM, payload: []});
+		dispatch({ type: RESET_TEAM, payload: [] });
 		console.log(getState())
 		callback();
 	} catch (e) {

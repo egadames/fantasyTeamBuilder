@@ -26,27 +26,25 @@ class AllTeams extends Component {
 
   renderLoadBox = () => {
     return (
-      this.props.teams.map((currentTeam) => (
-     <Container key = {currentTeam._id} style={{ border: "solid", margin: "auto",  }}>
+      this.props.teams.map((team) => (
+     <Container key = {team._id} style={{ border: "solid", margin: "auto",  }}>
         <Segment clearing>
           {/* <Button onClick={() => this.onSubmit()}>Make Team</Button> */}
           <Header as="h1" >
-            {console.log(currentTeam)}
-            Total Fantasy Points: {_.sumBy(currentTeam.team, "fantasyPoints")}
+            Total Fantasy Points: {_.sumBy(team.team, "fantasyPoints")}
           </Header>
           <Label
             attached='top right' 
-            onClick ={ () => this.props.deleteTeam(currentTeam._id)}
+            onClick ={ () => this.props.deleteTeam(team._id)}
             icon = 'delete'>
           </Label>
         </Segment>
         <Grid centered divided="vertically">
           <Grid.Row>
-          {console.log(currentTeam)}
-            {currentTeam.team.map((player, i) => (
+          {/* {console.log((team)==="Array"?"team":"team.team")} */}
+          {Array.isArray(team) ?(team.map((player, i) => (
               <Grid.Column key={i} width={3}>
                 <Card>
-                 
                   <Image
                     size="tiny"
                     style={{ margin: "10px auto -20px auto" }}
@@ -55,7 +53,20 @@ class AllTeams extends Component {
                   <Header as="p" content={player.Name} textAlign="center" />
                 </Card>
               </Grid.Column>
-            ))}
+            ))) :
+           (team.team.map((player, i) => (
+              <Grid.Column key={i} width={3}>
+                <Card>
+                  <Image
+                    size="tiny"
+                    style={{ margin: "10px auto -20px auto" }}
+                    src={player.PhotoUrl}
+                  />
+                  <Header as="p" content={player.Name} textAlign="center" />
+                </Card>
+              </Grid.Column>
+            ))) 
+            }
           </Grid.Row>
         </Grid>
       </Container>
