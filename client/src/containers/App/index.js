@@ -23,7 +23,7 @@ import Teams from '../Team'
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="homapgecontainer">
           <Navbar authenticated={this.props.authenticated} />
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/signup' component={SignUp}/>
