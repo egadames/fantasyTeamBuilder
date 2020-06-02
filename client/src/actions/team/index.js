@@ -55,6 +55,7 @@ export const addPlayer = (player) => (dispatch, getState) => {
 
 
 export const deletePlayer = (id)  => async (dispatch, getState)  => {
+	
 	const {currentTeam} = getState();
 	const data = currentTeam.currentTeam;
 	let filteredList = data.filter(function (player) {
@@ -78,10 +79,12 @@ export const getUserTeams = () => async dispatch => {
 }
 
 export const deleteTeam = id => async dispatch => {
+	console.log('imHUHUH')
+
 	try {
 		await axios.delete(`/api/team/${id}`, { headers: { 'authorization': localStorage.getItem('token') }});
 		const { data } = await axios.get('/api/team/', { headers: {'authorization': localStorage.getItem('token')}});
-		dispatch({type: GET_ALL_TEAMS,payload: data});
+		dispatch({type: GET_USER_TEAMS,payload: data});
 	} catch (e) {
 		dispatch({ type: DELETE_TEAM_BY_ID_ERROR, payload: e });
 	}
