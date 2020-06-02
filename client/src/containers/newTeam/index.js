@@ -82,8 +82,8 @@ class AllPlayers extends Component {
       { text: "SF", value: "SF" },
     ];
     return (
-      <div style ={{ maxWidth: '100%', maxHeight: '100%'}}>
-        <div style ={{maxWidth: '80%' }} >
+      <div style ={{ maxWidth: '90%', height: '100%'}}>
+        <div style ={{maxWidth: '80%', height: '100vh' }} >
         <Grid columns={16}>
           <Grid.Column floated='left' width={13} >
                <CreateTeamBox

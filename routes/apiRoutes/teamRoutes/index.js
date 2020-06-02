@@ -9,8 +9,10 @@ router.route('/')
   .get(requireAuth, getAllTeams)
   .post(requireAuth, createTeam);
 
-router.route('/:teamId')
-  .delete(requireAuth, deleteTeam)
+router.route('/user')
   .get(requireAuth, getUserTeams);
+
+router.route('/:teamId')
+  .delete(requireAuth, deleteTeam);
 
 module.exports = router;

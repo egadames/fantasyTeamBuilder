@@ -11,6 +11,6 @@ export default combineReducers({
   playerStats: playerReducer,
   teams: teamReducer,
   currentTeam: currentTeam,
-  userTeams: currentTeam,
+  userTeams: teamReducer,
   form: formReducer,
 });

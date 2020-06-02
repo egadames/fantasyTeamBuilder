@@ -20,10 +20,10 @@ function CreateTeamBox(props) {
       fluid
       style={{
         margin: "auto",
-        height: "100vh",
-        width: "100vh",
-        // maxHeight: "100%",
-        // maxWidth: "100%",
+        height: "100%",
+        width: "100%",
+        maxHeight: "100%",
+        maxWidth: "100%",
         backgroundRepeat: "no-repeat",
         zIndex: "0",
         backgroundImage:

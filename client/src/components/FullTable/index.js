@@ -15,7 +15,7 @@ export default (props) => (
   >
     <Grid.Column>
       <Table
-        style={{ width: "70vh" }}
+        style={{ width: "52vh", height: '60vh' }}
         verticalAlign="middle"
         sortable
         unstackable

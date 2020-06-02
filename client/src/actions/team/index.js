@@ -70,7 +70,7 @@ export const deletePlayer = (id)  => async (dispatch, getState)  => {
 export const getUserTeams = () => async dispatch => {
 	console.log('m')
 	try {
-		const { data } = await axios.get('/api/team', { headers: {'authorization': localStorage.getItem('token')}})
+		const { data } = await axios.get('/api/team/user', { headers: {'authorization': localStorage.getItem('token')}})
 		dispatch( {type: GET_USER_TEAMS, payload: data });
 	} catch (e) {
 		dispatch({type: GET_USER_TEAMS_ERROR,	payload: e });
