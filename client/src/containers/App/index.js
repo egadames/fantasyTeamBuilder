@@ -12,7 +12,7 @@ import SignOut from '../SignOut';
 
 import Navbar from './../../components/Navbar';
 import Homepage from  "../../components/Homepage";
-// import Carousel from "../../components/Carousel";
+import Carousel from "../../components/Carousel";
 // import Footer from"../../components/Footer";
 import newTeam from '../newTeam';
 import Teams from '../Team'

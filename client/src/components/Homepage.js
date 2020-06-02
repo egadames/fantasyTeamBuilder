@@ -1,4 +1,5 @@
 import React from "react";
+import Slider from "./Carousel"
 
 class Homepage extends React.Component {
   render(){
@@ -11,6 +12,7 @@ class Homepage extends React.Component {
         </div>
         <div className="row">
           <div className="twelve wide column">
+            <Slider/>
             {/* <img src="https://cdn.pixabay.com/photo/2015/09/09/20/33/basketball-933173_1280.jpg" alt="hamepageimg" className="ui big fluid image" /> */}
           </div>
           <div className="four wide column">
