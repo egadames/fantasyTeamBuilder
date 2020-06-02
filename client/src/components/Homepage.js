@@ -18,10 +18,11 @@ class Homepage extends React.Component {
           <div className="four wide column">
               <h2>Features</h2>
               <ul>
-                <li>Add Players</li>
-                <li>Delete Player</li>
-                <li>Player Stats</li>
-                <li>Team Stats</li>
+                <li>Create Teams</li>
+                <li>View Player Details</li>
+                <li>Get Estimate Fantasy Points</li>
+                <li>View Your Created Teams</li>
+                <li>Delete Your Created Teams</li>
               </ul>
               <h3>Team Members</h3>
               <ul>
