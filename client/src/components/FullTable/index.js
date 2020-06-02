@@ -3,24 +3,28 @@ import {
   Table,
   Grid,
   Pagination,
+  Container,
 } from "semantic-ui-react";
 import TableHeaders from "../../components/TableHeaders";
 import PlayerTable from '../../components/PlayerTable'
 
 export default (props) => (
-  <Grid
+  <div fluid>
+  <Grid 
     textAlign="center"
-    style={{ height: "50vh", marginTop: "5vh" }}
     verticalAlign="middle"
   >
-    <Grid.Column style={{ maxWidth: 550 }}>
+    <Grid.Column>
       <Table
         style={{ width: "70vh" }}
         verticalAlign="middle"
         sortable
         unstackable
+        collapsing
         celled
-        padded
+        // inverted
+        color={"black"}
+        // padded
         columns={4}
       >
         <TableHeaders
@@ -41,7 +45,6 @@ export default (props) => (
           currentTeam = {props.currentTeam}
           />  
         </Table.Body>
-
       </Table>
       <Pagination
         totalPages={Math.ceil(props.playerStats.length / 5)}
@@ -50,4 +53,5 @@ export default (props) => (
       />
     </Grid.Column>
   </Grid>
+  </div>
   );

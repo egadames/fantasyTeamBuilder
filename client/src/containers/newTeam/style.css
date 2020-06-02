@@ -1,0 +1,22 @@
+.homapgecontainer {
+  /* background-image: url("https://wheatlandexpress.com/wp-content/uploads/2019/06/basketball-court.jpg"); */
+  /* background-repeat: no-repeat, repeat; */
+  /* background-color: #cccccc; */
+  color:white;
+  height: 85vh;
+}
+.image{
+  width:100%;
+  height:100%;
+}
+.footer{
+  width : 100%;
+}
+
+body{
+  background: #000000;
+  /* background: -webkit-linear-gradient(top, #000000, #434343);
+  background: -moz-linear-gradient(top, #000000, #434343);
+  background: linear-gradient(to bottom, #000000, #434343); */
+  /* background-repeat: no-repeat; */
+}

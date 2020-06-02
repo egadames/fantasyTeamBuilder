@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Container } from "semantic-ui-react";
 
 import "./style.css";
 import "slick-carousel/slick/slick.css";
@@ -23,7 +24,7 @@ import Teams from '../Team'
 class App extends Component {
   render() {
     return (
-      <div className="homapgecontainer">
+      <div className = 'background' style={{maxHeight: '100%', maxWidth: '100%'}}>
           <Navbar authenticated={this.props.authenticated} />
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/signup' component={SignUp}/>
@@ -31,10 +32,6 @@ class App extends Component {
           <Route exact path='/signout' component={SignOut}/>
           <Route exact path='/team' component={newTeam}/>
           <Route exact path='/viewteams' component={Teams}/>
-          {/* <Route exact path='/teamform' component={NewTeamForm}/>
-          <Route exact path='/players' component={players}/> */}
-
-          {/* <Route exact path='/counter' component={Counter}/> */}
           {/* <Footer /> */}
       </div>
     )
