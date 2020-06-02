@@ -11,15 +11,6 @@ export default combineReducers({
   playerStats: playerReducer,
   teams: teamReducer,
   currentTeam: currentTeam,
+  userTeams: currentTeam,
   form: formReducer,
-  // form: formReducer.plugin({
-  //   addTodo: (state, action) => {
-  //     switch(action.type) {
-  //       case ADD_USER_TODO:
-  //         return undefined;
-  //       default:
-  //         return state;
-  //     }
-  //   }
-  // }),
 });

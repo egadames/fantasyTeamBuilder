@@ -5,12 +5,13 @@ import {
 } from "semantic-ui-react";
 
 export default (props) => (
-  <Table.Header>
-  <Table.Row>
+  <Table.Header >
+  <Table.Row >
       <Table.HeaderCell
         onClick={() => props.sortPlayers(props.direction, "Name")}
         textAlign="center"
         content="Name"
+        
       ></Table.HeaderCell>
       <Table.HeaderCell
         onClick={() => props.sortPlayers(props.direction, "Position")}

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
+import "./style.css";
+
 import { connect } from "react-redux";
 import { getAllTeams, addTeam, addPlayer, getCurrentTeam, deletePlayer } from "../../actions/team";
 import {
@@ -9,7 +11,6 @@ import {
   filterDataByPosition,
 } from "../../actions/player";
 import { 
-  GET_ALL_TEAMS, 
   ADD_PLAYER_TO_TEAM
 } from "../../actions/types";
 
@@ -37,8 +38,8 @@ class AllPlayers extends Component {
   handlePageChange = (event, data) => {
     this.setState({
       activePage: data.activePage,
-      start: data.activePage === 1 ? 0 : data.activePage * 10 - 10,
-      end: data.activePage * 10,
+      start: data.activePage === 1 ? 0 : data.activePage * 5 - 5,
+      end: data.activePage * 5,
     });
   };
 
@@ -81,30 +82,39 @@ class AllPlayers extends Component {
       { text: "SF", value: "SF" },
     ];
     return (
-      <Container>
-        <CreateTeamBox
-          currentTeam = {this.props.currentTeam}
-          onSubmit = {this.props.addTeam}
-          handleDelete = {this.props.deletePlayer}
-        />
+      <div style ={{ maxWidth: '100%', maxHeight: '100%'}}>
+        <div style ={{maxWidth: '80%' }} >
+        <Grid columns={16}>
+          <Grid.Column floated='left' width={13} >
+               <CreateTeamBox
+            currentTeam = {this.props.currentTeam}
+            onSubmit = {this.props.addTeam}
+            handleDelete = {this.props.deletePlayer}
+          />
+          </Grid.Column>
+        <Grid.Column floated='right' width={3}>
         <FullTable
-          sortPlayers={this.props.sortPlayers}
-          direction={this.props.direction}
-          names={names}
-          onChange={this.onChange}
-          onChangePosition={this.onChangePosition}
-          searchQuery={this.state.searchQuery}
-          position={position}
-          playerStats = {this.props.playerStats}
-          start = {this.state.start}
-          end = {this.state.end}
-          addPlayer = {this.props.addPlayer}
-          currentTeam = {this.props.currentTeam}
-          activePage = {this.state.activePage}
-          handlePageChange = {this.handlePageChange}
-          value = {this.state.value}
-        />
-      </Container>
+            style ={{}}
+            sortPlayers={this.props.sortPlayers}
+            direction={this.props.direction}
+            names={names}
+            onChange={this.onChange}
+            onChangePosition={this.onChangePosition}
+            searchQuery={this.state.searchQuery}
+            position={position}
+            playerStats = {this.props.playerStats}
+            start = {this.state.start}
+            end = {this.state.end}
+            addPlayer = {this.props.addPlayer}
+            currentTeam = {this.props.currentTeam}
+            activePage = {this.state.activePage}
+            handlePageChange = {this.handlePageChange}
+            value = {this.state.value}
+          />
+        </Grid.Column>
+        </Grid>
+        </div>
+      </div>
     );
   }
 }

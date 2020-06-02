@@ -14,22 +14,21 @@ export default (props) => {
         <Header content="No players yet" />
       </Table.Cell>
       </Table.Row>
-
     )
   } else {
     return props.playerStats
       .slice(props.start, props.end)
-      .map(({ PlayerID, Name, Position, PhotoUrl, fantasyPoints, Games, i }) => {
+      .map(({ PlayerID, Name, Position, PhotoUrl, fantasyPoints, Games}) => {
         return (
-          <Table.Row key={i}>
-            <Table.Cell>
+          <Table.Row key={PlayerID}>
+            <Table.Cell style ={{color: 'white'}}>
               <Image
                 size="tiny"
                 src={PhotoUrl}
                 style={{ margin: "10px auto -20px auto" }}
               />
               <Header as="h4" content={Name} textAlign="center" />
-            </Table.Cell>
+            </Table.Cell >
             <Table.Cell singleLine textAlign="center">
               <Header as="h2" content={Position} />
             </Table.Cell>
