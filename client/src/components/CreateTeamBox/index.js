@@ -15,11 +15,20 @@ import { withRouter } from 'react-router-dom';
 
 function CreateTeamBox(props) {
   const fantasyPoints = _.sumBy(props.currentTeam, "fantasyPoints");
-  console.log(props.currentTeam)
   return (
-    <Container style={{ border: "solid", margin: "auto", height: "71vh" }}>
-      <Segment clearing>
+    <Container stackable fluid style={{
+      margin: "auto", 
+      height: "100vh",
+      maxHeight: "100%",
+      maxWidth: '100%',
+      backgroundRepeat: 'no-repeat',
+      zIndex: '0',
+      backgroundImage: "url('https://images.unsplash.com/photo-1590227632180-80a3bf110871?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200&h=800&fit=crop&ixid=eyJhcHBfaWQiOjF9')"
+       }}>
+
+      <Segment inverted clearing>
         <Button 
+        color = {'blue'}
         onClick={() => props.onSubmit(function() {
           props.history.push('/');
         })}>Make Team</Button>
@@ -27,12 +36,11 @@ function CreateTeamBox(props) {
           Total Fantasy Points: {fantasyPoints}
         </Header>
       </Segment>
-      <Grid centered divided="vertically">
+        <Grid divided="vertically">
         <Grid.Row>
           {props.currentTeam.map((player, i) => (
             <Grid.Column key = {i} width={3}>
-              <Segment>
-                {console.log(player)}
+              <Segment inverted>
                 <Label
                   attached="top right"
                   onClick={() => props.handleDelete(player.PlayerID)}
@@ -49,7 +57,7 @@ function CreateTeamBox(props) {
           ))}
         </Grid.Row>
       </Grid>
-    </Container>
+      </Container>
   );
 };
 
