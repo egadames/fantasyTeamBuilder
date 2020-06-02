@@ -13,7 +13,7 @@ export default (props) => (
     ) : (
       <Menu.Item as={Link} to="/signin" content="Sign In" />
     )}
-    { props.authenticated ? <Menu.Item as={Link} to='/viewteams' content='View All Teams'/>  : null }
+    { props.authenticated ? <Menu.Item as={Link} to='/viewteams' content='View Your Teams'/>  : null }
     {props.authenticated ? (
       <Menu.Item as={Link} to="/team" content="Create a Team" />
     ) : null}

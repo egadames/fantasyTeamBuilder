@@ -17,16 +17,16 @@ import requireAuth from './../../hoc/requireAuth';
 
 class AllTeams extends Component {
 
-  // componentDidMount() {
-  //   this.props.getUserTeams();
-  // }
   componentDidMount() {
-    this.props.getAllTeams();
+    this.props.getUserTeams();
   }
+  // componentDidMount() {
+  //   this.props.getAllTeams();
+  // }
 
   renderLoadBox = () => {
     return (
-      this.props.teams.map((team) => (
+      this.props.userTeams.map((team) => (
      <Container key = {team._id} style={{ border: "solid", margin: "auto",  }}>
         <Segment inverted clearing>
           <Header as="h1" >
