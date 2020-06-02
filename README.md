@@ -58,6 +58,6 @@ What were your successes?
 
 ### Screenshot
 ![screenshot1](https://github.com/egadames/project03/blob/master/assets/img/screenshot1.JPG)
-![screenshot2](https://github.com/egadames/project03/blob/master/asset/img/screentshot2.JPG)
-![screenshot3](https://github.com/egadames/project03/blob/master/asset/img/screentshot3.JPG)
-![screenshot4](https://github.com/egadames/project03/blob/master/asset/img/screentshot4.JPG)
+![screenshot2](https://github.com/egadames/project03/blob/master/asset/img/screenshot2.JPG)
+![screenshot3](https://github.com/egadames/project03/blob/master/asset/img/screenshot3.JPG)
+![screenshot4](https://github.com/egadames/project03/blob/master/asset/img/screenshot4.JPG)
