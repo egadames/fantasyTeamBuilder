@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Container} from "semantic-ui-react"
 import Carousel from 'nuka-carousel';
-import Homepage from "./Homepage";
  
 class Slider extends Component {
   render() {
@@ -17,7 +16,7 @@ class Slider extends Component {
         </Carousel>
       </Container>
     )
-}
+  }
 }
 
 export default Slider;

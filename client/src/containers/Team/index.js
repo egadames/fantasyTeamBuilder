@@ -20,9 +20,6 @@ class AllTeams extends Component {
   componentDidMount() {
     this.props.getUserTeams();
   }
-  // componentDidMount() {
-  //   this.props.getAllTeams();
-  // }
 
   renderLoadBox = () => {
     return (
@@ -30,7 +27,8 @@ class AllTeams extends Component {
      <Container key = {team._id} style={{ border: "solid", margin: "auto",  }}>
         <Segment inverted clearing>
           <Header as="h1" >
-
+          {console.log(team)}
+          
             Total Fantasy Points: {_.sumBy(team.team, "fantasyPoints")}
           </Header>
           <Label
@@ -85,7 +83,6 @@ class AllTeams extends Component {
 
 function mapStateToProps({
   teams: { teams }, userTeams: { userTeams } }) { return { teams, userTeams };
-  
 }
 
 export default requireAuth(connect(mapStateToProps, {getAllTeams, deleteTeam, getUserTeams})(AllTeams));

@@ -1,8 +1,6 @@
 import {
 	GET_ALL_PLAYER_STATS, 
 	GET_ALL_PLAYER_STATS_ERROR,
-	// ADD_PLAYER_TO_TEAM,
-	// ADD_PLAYER_TO_TEAM_ERROR,
 } from "../types";
 import axios from 'axios';
 
@@ -28,26 +26,12 @@ export const filterDataByName = (searchQuery) => async dispatch => {
 	}
 }
 
-// onSubmit = async (dispatch) => {
-// 	const team = this.state.newTeam;
-// 	const points = _.sumBy(team, "fantasyPoints");
-// 	try {
-// 		const { data } = await axios.post("/api/team/", { team, points, headers: {'authorization': localStorage.getItem('token')}});
-// 		localStorage.setItem('token', data.token);
-// 		dispatch({ GET_ALL_TEAMS, payload: data});
-// 		this.props.history.push("/");
-// 	} catch (e) {
-// 		console.log(e);
-// 	}
-// };
-
 export const filterDataByPosition = (searchQuery) => async dispatch => {
 	console.log('imhut')
   try {
    let regex = new RegExp(searchQuery.toLowerCase());
 	 const { data } = await axios.get('/api/player', { headers: {'authorization': localStorage.getItem('token')}});
-	 
-   let filteredData =  data.filter(function(player) {
+	 let filteredData =  data.filter(function(player) {
      return !player.Position.toLowerCase().search(regex);
    });
    dispatch({type: GET_ALL_PLAYER_STATS, payload: filteredData, direction: 'asc'});

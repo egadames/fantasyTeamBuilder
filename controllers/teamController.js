@@ -1,6 +1,15 @@
 const { User, Team } = require('../models/index');
 
 module.exports = {
+  getAllUserEmails: async (req, res) => {
+    const { email } = req.query;
+    try {
+      const userEmail = await User.findOne({ email }, 'email');
+      return res.status(200).json(userEmail);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
   getAllTeams: async (req, res) => {
     try {
       const teams = await Team.find();
@@ -25,7 +34,6 @@ module.exports = {
     }
   },
   getUserTeams: async (req, res) => {
-    console.log('IM HIT')
     try {
       const teams = await Team.find({ user: req.user._id });
       return res.json(teams);
@@ -37,16 +45,15 @@ module.exports = {
     const { teamId } = req.params;
     try {
       const teamToDelete = await Team.findById(teamId);
-      // if (!teamToDelete) {
-      //   console.log(!teamToDelete)
-      //   return res.status(401).json({ error: 'The with that Id' });
-      // }
-      // if (req.user._id.toString() !== teamToDelete.user.toString()) {
-      //   return res.status(401).json({ error: "You cannot delete a todo that's not yours" });
-      // }
-      await Team.findByIdAndDelete(teamId);
-      const teams = await Team.find();
-      return res.json(teams);
+      if (!teamToDelete) {
+        return res.status(401).json({ error: 'The with that Id' });
+      }
+      if (req.user._id.toString() !== teamToDelete.user.toString()) {
+        return res.status(401).json({ error: "You cannot delete a todo that's not yours" });
+      }
+      const deletedTeam = await Team.findByIdAndDelete(teamId);
+      // const teams = await Team.find();
+      return res.json(deletedTeam);
     } catch (e) {
       return res.status(403).json({ e });
     }

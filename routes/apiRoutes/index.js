@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const playerRoutes = require('./playerRoutes');
 const authRoutes = require('./authRoutes');
-const userTodoRoutes = require('./userTodoRoutes');
 const teamRoutes = require('./teamRoutes');
-
+const { getAllUserEmails } = require('../../controllers/teamController');
 
 router.use('/auth', authRoutes);
-router.use('/user', userTodoRoutes);
+router.use('/user/emails', getAllUserEmails);
 router.use('/player', playerRoutes);
 router.use('/team', teamRoutes);
 

@@ -12,7 +12,6 @@ const TeamSchema = new Schema({
     default: Date.now(),
   },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  // user: { type: Number, ref: 'User' },
 
 });
 

@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import "./style.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 import SignUp from '../SignUp';
 import SignIn from '../SignIn';
 import SignOut from '../SignOut';
 
 import Navbar from './../../components/Navbar';
 import Homepage from  "../../components/Homepage";
-import Carousel from "../../components/Carousel";
-// import Footer from"../../components/Footer";
 import newTeam from '../newTeam';
 import Teams from '../Team'
-// import NewTeamForm from '../../Data/Team/NewTeamForm';
-// import players from '../../Data/Player/players';
-
+import "./style.css";
 
 class App extends Component {
   render() {
@@ -31,7 +23,6 @@ class App extends Component {
           <Route exact path='/signout' component={SignOut}/>
           <Route exact path='/team' component={newTeam}/>
           <Route exact path='/viewteams' component={Teams}/>
-          {/* <Footer /> */}
       </div>
     )
   }

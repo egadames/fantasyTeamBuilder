@@ -23,7 +23,6 @@ class SignUp extends Component {
     return (
       <Form.Input
         {...input}
-        fluid
         error={meta.touched && meta.error}
         icon="user"
         iconPosition="left"
@@ -54,7 +53,7 @@ class SignUp extends Component {
       <div>
         <Grid verticalAlign="middle">
           <Grid.Row>
-            <Grid.Column floated="left" fluid width={8}>
+            <Grid.Column floated="left" width={8}>
               <div styles={{ maxWidth: 1400, maxHeight: 1000 }}>
                 <Image src="https://source.unsplash.com/1600x1400/?basketball?nba" />
               </div>
