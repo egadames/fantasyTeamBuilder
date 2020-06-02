@@ -83,7 +83,8 @@ class AllTeams extends Component {
 }
 
 function mapStateToProps({
-  teams: { teams }}) { return { teams };
+  teams: { teams }, userTeams: { userTeams } }) { return { teams, userTeams };
+  
 }
 
 export default requireAuth(connect(mapStateToProps, {getAllTeams, deleteTeam, getUserTeams})(AllTeams));
